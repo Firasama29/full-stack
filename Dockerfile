@@ -1,6 +1,6 @@
 FROM openjdk:11
 
 RUN mkdir /app
-COPY ./target/classes/Main.class /app
-
-CMD java src/main/java/Main.java
+ADD target/*.jar /app
+WORKDIR /app
+CMD java Main
