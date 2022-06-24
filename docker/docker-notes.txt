@@ -14,6 +14,9 @@ sources()
 		- mounting local directories to docker container using volumes
 		- how to manage volumes
 		- docker volumes
+		- how to run database using docker container
+		- how to run database using Dockerfile
+		- how to display an html in the browser file using nginx container 
 		
 ----------------------------------------------------------------------------------------------------------
 
@@ -109,7 +112,20 @@ sources()
    		- list volumes				docker volume ls
    		- inspect a volume			docker volume inspect volume_name
    		- remove a volume			docker volume rm volume_name
-   		- run a container with a volme		docker run --name my_container -v ${PWD}:/my-vol <image>:tag		  	
+   		- run a container with a volme		docker run --name my_container -v ${PWD}:/my-vol <image>:tag
+   		
+   		
+   ------------------------------------------
+   	> how to run database using docker container
+   	   > POSTGRES: docker run --name <container_name> -e POSTGRES_PASSWORD=<password> -p 5432:5432 -d postgres:tag
+   	   . MYSQL:					  	
 	
 	
-	
+	------------------------------------------
+	> how to display an html in the browser file using nginx container
+		- create a directory and create an html file inside it
+		- create a Dockerfile in the same directory with the following directives
+			FROM nginx:tag (for example, nginx:alpine)
+			COPY . /usr/share/nginx/html
+		- build an image
+		- start a container that publishes to port 80 of the container	
