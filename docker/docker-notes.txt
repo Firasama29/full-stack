@@ -1,5 +1,9 @@
 docker
-sources()
+sources
+(
+	https://docs.docker.com/storage/volumes/
+	https://www.freecodecamp.org/news/docker-mount-volume-guide-how-to-mount-a-local-directory/
+)
 
 		topics:
 		- reasons applications may run on one machine but not in another
@@ -17,7 +21,16 @@ sources()
 		- how to run database using docker container
 		- how to run database using Dockerfile
 		- how to display an html in the browser file using nginx container 
-		
+		- how to use Dockerfile to build an image
+		- difference between RUN, CMD and ENTRYPOINT
+		- difference between ADD and COPY
+		- how to run postgres container
+		- how to run a spring boot app using docker container
+		- how to use docker compose
+		- how to run an application using node container
+		- how to persist postgres data after container is removed
+		- how to connect app container with db container
+		- how to reference environment variables from an external file in docker-compose.yaml
 ----------------------------------------------------------------------------------------------------------
 
 	> reasons applications may run on one machine but not in another:
@@ -32,17 +45,17 @@ sources()
 		  configuration are not required
 		- we can remove an app with all its dependencies in one go	
 
-	------------------------------------------
+    ------------------------------------------
 	> difference between containers and virtual machines
 	-------------------------------------------------------------------------------------------------------------------------------------------
-	virtual machine																	container
+	virtual machine														container
 	-------------------------------------------------------------------------------------------------------------------------------------------
-	- an abstraction of a machine												- isolated environment for running an application
+	- an abstraction of a machine								- isolated environment for running an application
 	
-	- virtualizes physical hardware												- virtualizes operating system
+	- virtualizes physical hardware								- virtualizes operating system
 	
 	- multiple VMs can be run in one physical machine, each running  			- multiple containers can run with multiple applications		
-	  an application with different version of same software                      and different versions of the same software
+	  an application with different version of same software                      		and different versions of the same software
 	  using hypervisor							
 	  
 	- hypervisor is a software used to create & manage virtual machines			- uses docker daemon
@@ -51,12 +64,13 @@ sources()
 	
 	- each virtual machine needs full copy of an operating system				- containers share the same OS
 	
-	- slow to start																- container can start quickly
+	- slow to start										- container can start quickly
 	
-	- resource intensive because each VM takes physical machine's resources		- more lightweight than virtual machines bcs they share the same
-	  like cpu, memory and disk space											  operating system
+	- resource intensive because each VM takes physical machine's resources			- more lightweight than virtual machines bcs they share the 	
+	like cpu, memory and disk space								same operating system
+	  											  
 	
-	------------------------------------------
+    ------------------------------------------
 	> docker archeticture (client - server)
 	
 	client	-> CLI you interact with
@@ -121,11 +135,62 @@ sources()
    	   . MYSQL:					  	
 	
 	
-	------------------------------------------
+   -----------------------------------------
 	> how to display an html in the browser file using nginx container
+	NOTE: this is useful if we want to test a web application and show it on the browser
 		- create a directory and create an html file inside it
 		- create a Dockerfile in the same directory with the following directives
 			FROM nginx:tag (for example, nginx:alpine)
 			COPY . /usr/share/nginx/html
 		- build an image
-		- start a container that publishes to port 80 of the container	
+		- start a container that publishes to port 80 of the container using command
+				docker run -v ${PWD}:/usr/share/nginx/html -p 8080:80 -d nginx
+		- go to http://localhost:8080/<your_html_file.html
+		
+    ------------------------------------------	
+	> how to use Dockerfile to build an image
+		NOTE: building our custom image from a Dockerfile is useful when we want to store our application in the container 
+		so that when we create a container from that image, our application will be available through that container
+		
+		- Create a Dockerfile
+		- Specify the directives that you want. examples:
+			>> FROM <base_image>					>>>>> specifies the base image for your image
+			>> RUN mkdir <my_folder>; \				>>>>> RUN in this example executes multiple commands. It creates a folder
+					cd <my_folder>; \				>>>>> here we're moving inside that folder
+					echo "hello" > file.txt;		>>>>> here we're creating a text file and inserting a text inside it
+			>> WORKDIR	<my_folder>					>>>>> here we're specifying the current working directory
+			>> COPY MyClass.java .					>>>>> this will copy files that you specify into current directory ( . )
+			>> RUN	javac MyClass.java				>>>>> here the java class will be executed during image creation
+			>> CMD java MyClass					>>>>> this command will be executed when a container is created
+	
+		
+    -----------------------------------------		
+	> difference between RUN, CMD and ENTRYPOINT		
+		- RUN command gets executed when building the image, CMD gets executed when creating a container
+    
+    
+    -----------------------------------------	
+	> difference between ADD and COPY
+		both COPY and ADD can be used to copy local file to the image, but ADD is useful for zip files, jar files, etc
+	
+	
+    -----------------------------------------		
+	> how to run postgres container
+		run command 	> docker run --name <container_name> -e POSTGRES_PASSWORD=<password> -p 5432:5432 -d postgres:tag
+		
+	
+    -----------------------------------------		
+	> how to run an application using node container
+		steps to run an application using node container:
+			- create a project
+			- create a Dockerfile. Inside it, specify the following directives
+				FROM node				<< base image
+				MKDIR app				<< create a directory
+				COPY . /app				<< copy all files of your application to the directory inside the container
+				WORKDIR /app				<< go inside the directory of the container
+				RUN npm install				<< run this command when building the image
+				EXPOSE 80				<< expose container port to our local machine so we can access the container
+				CMD ["node", "app.js"]			<< CMD will be executed when container is created
+	
+	
+    -----------------------------------------		

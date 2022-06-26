@@ -1,0 +1,43 @@
+docker.compose.yml
+
+(source: https://www.baeldung.com/ops/docker-compose#managing-environment-variables)
+
+- components:
+
+version: "3.~" > version of compose file format
+
+services: > refers to container configuration
+	<container1>:
+		container_name: @{CONTAINER_NAME} > pass the name variable from .env file
+		image: <image_name>:tag > WHEN the image we need is available in Docker hub
+		>>>>>OR
+		build: "" OR . > IF you want to build the image by reading Dockerfile
+		ports:
+		    - 8080:8080 > to reach the container from the host, we expose the ports
+		environment:
+		    ENV_VAR1: ${SOMETHING} > pass the name variable from .env file
+		    ENV_VAR2: ${SOMETHING} > pass the name variable from .env file
+		    ..
+		    OR
+		    env_file:
+		    - ./.env
+		    depends_on: 	   > this container depends on another container
+		        container2
+		    volumes:
+		        - app:/app > example of a named volume
+
+	<container2>:
+		image: postgres > example
+		ports:
+		    - 5432:5432/tcp
+		environment:
+		    PG_USER: ${PG_USER} > pass the name variable from .env file
+		    PG_PASSWORD: ${PG_PASSWORD} > pass the name variable from .env file
+		volumes:
+		    - database_app:/var/lib/postgresql/data > default volume directory for postgres image
+		    or
+		    - data_app:/bitnami/postgresql/13 > default volume directory for bitnami/postgres image
+
+		volumes: (to list the volumes that we specify in this file)
+		    data_app:
+		    driver: local 

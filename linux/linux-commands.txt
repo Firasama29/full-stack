@@ -22,4 +22,7 @@ Below are a list of linux commands collected from different sources (book, artic
      		7.1. multiple files can be created (touch file1 file2
      		
      8. rmdir	-> removes empty directory(s)
-     		8.1. to remove files and folders, we can use rm command 	-> rm -rf file folder		
+     		8.1. to remove files and folders, we can use rm command 	-> rm -rf file folder
+     
+     9. echo	-> displays a line of text
+     		9.1 echo text > file	outputs the text to a file (if the file does not exist, it will be created) 		
