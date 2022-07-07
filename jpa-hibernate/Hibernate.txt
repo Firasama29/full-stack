@@ -1,0 +1,44 @@
+Hibernate
+
+sources
+(
+	https://www.youtube.com/watch?v=Yv2xctJxE-w&list=PL4AFF701184976B25&ab_channel=JavaBrains
+)
+
+	topics:
+		- steps to create a hibernate project
+		- steps to use Hibernate API
+		
+-------------------------------------------------------------------------------------------------------
+- steps to create a Hibernate project:
+	> create a maven project
+	> add hibernate's dependency (jar) or download jar file from Hibernate's website
+	> create a hibernate xml configuration file (see videos)
+	
+	
+- steps to use Hibernate API
+	we can perform operations on an entity to save, read, update or delete using Hibernate API. Steps are:
+		1. Create an entity class and annotated with javax.persistence's @Entity
+		2. in main method, instantiate the object
+		3. Create a SessionFactory
+			|----------------------------------------------------------------------------------------|
+			| SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory(); |
+			|----------------------------------------------------------------------------------------|
+			- it's a class that is used to create Hibernate sessions
+			- one SessionFactory per application should be used
+		4. Create a session from SessionFactory
+			|-------------------------------------------------|
+			| Session session = sessionFactory.openSession(); |
+			|-------------------------------------------------|
+		5. 	Create a transaction
+			|--------------------------|
+			| session.beginTransaction |
+			|--------------------------|
+	TO SAVE AN OBJECT:
+			|----------------------|
+			| session.save(object) |
+			|----------------------|
+	TO FETCH AN OBJECT FROM DB
+			|--------------------------|
+			| session.beginTransaction |
+			|--------------------------|	

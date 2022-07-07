@@ -1,0 +1,45 @@
+EntityManager
+(
+	https://www.baeldung.com/hibernate-entitymanager
+)
+
+	- EntityManager is part of Java Persistance API
+	- EntityManager allows us to access the Persistence Context using APIs
+	- EntityManager API provides a collection of methods to interact with the database:
+		> EntityManager em = EntityManager.getEntityManager();
+		
+			>> persisting entities (entity will be in persistent state)
+				em.getTransaction().begin();
+				setters...
+				em.persist(entity);
+				
+				e.getTransaction().commit();
+			
+			
+			>> finding an entity by id
+				
+				Entity entity = e.find(Entity.class, new Long(id));
+				em.detach(entity);
+				return entity;
+				
+				
+			>> detaching an entity from the persistence context (entity will be in detach state)
+				em.detach(entity);
+				
+			
+			>> merging an entity
+				em.merge(entity);
+				
+			>> Querying for entities using JPQL
+				
+				List<?> entityList = em.createQuery("SELECT e FROM entity e WHERE e.id = ?1")
+										.setParameter(1, 1).getResultList();
+									return entityList;
+			
+			
+			>> Removing entities
+				em.getTransaction().begin();
+				Entity entity = em.find(Entity.class, new Long(1L));
+				em.remove(entity);
+				em.getTransaction().commit();
+				

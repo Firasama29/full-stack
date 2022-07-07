@@ -1,0 +1,17 @@
+JPQL vs Native queries
+(
+	https://www.bezkoder.com/jpa-native-query/
+)
+
+	- JPQL (Jakarta Persistence Query Language) is part of JPA
+	- JPQL resembles SQL but operates on JPA entities stored in DB rather than operating on DB tables
+	- Syntax:
+		@Query("Select e from Entity e..")
+			
+	- Native query syntax	
+		@Query(value = "Select * from entities e where e.id = 1", nativeQuery = true)
+		
+		with parameters:
+			@Query(value = "SELECT * FROM entities e WHERE e.title = :title AND e.yearsOfxperience = :yearsOfxperience", nativeQuery = true)
+			List<Entity> findByTitleAndYearsOfExperience(@Param("title") String title, @Param("yearsOfExperience") Double yearsOfExperience);
+	

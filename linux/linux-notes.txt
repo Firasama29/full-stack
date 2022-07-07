@@ -1,0 +1,13 @@
+linux notes
+sources
+(
+https://www.katacoda.com/cybershaolin/courses/intro-to-linux/linux-os
+)
+
+	- linux OS is made up of the following:
+		> kernel
+		> Bootloader
+		> Daemons
+		> Graphical server
+		> Desktop environment and applications
+		> Command line or shell

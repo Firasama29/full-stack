@@ -1,0 +1,15 @@
+sources:
+(
+	spring cloud: https://cloud.spring.io/spring-cloud-sleuth/reference/html/appendix.html
+)
+
+spring properties:
+	below are list of spring properties we can define in application.properties / application.yaml, helm files and bootstrap.yaml
+
+	topics:
+		- spring.jpa (application.properties / application.yaml)
+		- spring.datasource (application.properties / application.yaml)
+		- spring.profile.active (application.properties / application.yaml AND helm files)
+		- spring.zipkin.enabled (application.properties / application.yaml)
+		- spring.sleuth.messaging.jms.enabled (application.properties / application.yaml)
+		- spring.application.name (bootstrap.yaml)

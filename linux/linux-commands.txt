@@ -1,28 +1,68 @@
 linux commands
-
+sources
+(
+	https://www.katacoda.com/cybershaolin/courses/intro-to-linux/linux-os
+)
 Below are a list of linux commands collected from different sources (book, articles, youtube)
 
-     1. man	-> system manual pager. Displays manual for any command
+.....details of linux openrating system
+     1. uname -r and uname -d		-> prints system information
+     2. lsb_release -a			-> prints distribution-specific information
+     3. cat /etc/os-release
+     4. cat /proc/version
+
+.....Directory commands
+
+.....File commands
+
+.....Copy or transfer commands
+
+.....Find commands
+
+.....Compression commands
+
+.....User commands
+
+.....Group commands
+
+.....Utilities commands
+
+.....Software commands
+
+.....shell or terminal commands
+
+.....program or process commands
+
+.....network commands
+
+.....environment commands
+
+.....Security or file permission commands
+
+.....Help commands
+     5. man				-> system manual pager. Displays manual for any command
      
-     2. tldr	-> command to get a quick overview of a command
+     6. tldr				-> command to get a quick overview of a command
      
-     3. ls	-> command to list directory contents. You can specify the folder (for example: ls /bin)
-     		3.1. ls -a	-> displays hidden files (hidden files start with a dot ( . ))	
-     		3.2. ls -al	-> displays more information like file permissions, size in bytes, modified datetime, file name		
+     7. ls				-> command to list directory contents. You can specify the folder (for example: ls /bin)
+     					3.1. ls -a	-> displays hidden files (hidden files start with a dot ( . ))	
+     					3.2. ls -al	-> displays more information like file permissions, size in bytes, modified datetime, file name		
 	
-     4. cd	-> command to move into a specified directory
+     8. cd				-> command to move into a specified directory
      
-     5. pwd	-> command to show the current folder path
+     9. pwd				-> command to show the current folder path
      
-     6. mkdir	-> command to create folders 
-     		6.1. multiple folders can be created (mkdir folder1 folder2)
-     		6.2. nested folders can be created (mkdir -p folder1/folder2)
+     10. mkdir				-> command to create folders 
+     					6.1. multiple folders can be created (mkdir folder1 folder2)
+     					6.2. nested folders can be created (mkdir -p folder1/folder2)
      
-     7. touch	-> to create an empty file
-     		7.1. multiple files can be created (touch file1 file2
+     11. touch				-> to create an empty file
+     					7.1. multiple files can be created (touch file1 file2
      		
-     8. rmdir	-> removes empty directory(s)
-     		8.1. to remove files and folders, we can use rm command 	-> rm -rf file folder
+     12. rmdir				-> removes empty directory(s)
+     					8.1. to remove files and folders, we can use rm command 	-> rm -rf file folder
      
-     9. echo	-> displays a line of text
-     		9.1 echo text > file	outputs the text to a file (if the file does not exist, it will be created) 		
+     13. echo				-> displays a line of text
+     					9.1 echo text > file	outputs the text to a file (if the file does not exist, it will be created)
+     		
+     14. date				-> prints date		 		

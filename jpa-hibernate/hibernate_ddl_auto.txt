@@ -1,0 +1,17 @@
+	
+	sources (
+		https://stackoverflow.com/questions/42135114/how-does-spring-jpa-hibernate-ddl-auto-property-exactly-work-in-spring
+	)
+	jpa.hibernate.ddl.auto has a number of operations:
+	
+	1) update:
+		- adds new columns, tables, constraints, etc. without removing existing ones
+		- it queries JDBC driver's API to get database metadata then hibernate compares object model that it creates based on reading
+			the annotated classes and attempts to adjust the schema on the fly
+			
+	2) 	create-drop
+	
+	3) none:
+		- highly recommended for production
+	
+	4) validate	

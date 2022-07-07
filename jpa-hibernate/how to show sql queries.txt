@@ -1,0 +1,14 @@
+	
+	HOW TO SHOW SQL QUERIES
+	sources
+	(
+		https://www.baeldung.com/sql-logging-spring-boot
+	)
+	
+	- with spring.jpa.show_sql=true
+	- with spring.jpa.properties.hibernate.format_sql=true
+	
+	- Using loggers:
+	
+		>> logging.level.org.hibernate.sql+DEBUG								: to log SQL queries
+		>> logging.level.org.hibernate.type.descriptor.sql.BasicBinder=TRACE    : to log prepared statement parameters

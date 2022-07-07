@@ -1,0 +1,213 @@
+Transactions
+
+sources
+(
+	https://www.baeldung.com/transaction-configuration-with-jpa-and-spring#search
+	https://vladmihalcea.com/a-beginners-guide-to-acid-and-database-transactions/
+	https://vladmihalcea.com/dirty-read/
+	https://vladmihalcea.com/non-repeatable-read/
+	https://vladmihalcea.com/phantom-read/
+	https://medium.com/codex/the-basics-of-spring-framework-transactions-6a99045dba8
+)
+	topics:
+		- what is a transaction
+		- properties of a transaction
+		- additional configurations for @Transactional annotation
+			>> propagation types
+				>>>> REQUIRED (default)
+				>>>> SUPPORTS
+				>>>> MANDATORY
+				>>>> REQUIRES_NEW
+				>>>> NOT_SUPPORTED
+				>>>> NEVER
+				>>>> NESTED
+			>> isolation levels
+				>>>> READ_UNCOMMITTED
+				>>>> READ_COMMITTED
+				>>>> REPEATABLE_READ
+				>>>> SERIALIZABLE
+			>> timeout for the operation wrapped by the transaction
+			>> readOnly flag
+			>> rollback rules
+		- Transaction Logging
+		- ACID
+			>> Atomicity
+			>> Consistency
+			>> Isolation
+			>> Durability
+		- Phenomena
+			>> Dirty read
+			>> Non-repeatable read
+			>> Phantom read
+	-----------------------------------------------------------
+	-----------------------------------------------------------
+	- what is a transaction?
+		It's a collection of read/write operations that only succeeds if all operations succeed, otherwise it rolls back
+	- properties of a transaction:
+		> Atomicity			>> all or nothing. Either all succeed or all fail
+		> Consistency
+		> Isolation
+		> Durability
+----------------------------------------------------------------------------------------------------------------------
+	- In relational databases, transactions are mandatory. Every SQL statement must execute within the scope of a transaction
+	- Even if you don't declare a transaction, you will be using one
+	- We're only able to configure the transaction scope or boundaries.
+	- If we don't specify the transaction boundaries, every SQL statement will have its own transaction in which is going to be used executed
+	- default transaction mode is auto-commit mode
+	- A statement executed in auto-commit mode cannot be rolled back
+	- Oppsite of auto-commit is non-auto-commit in which the SQL client application is responsible for ending transactions via commit or rollback
+	- In normal scenarios, multiple SQL statements need to be executed. Autocommit mode will prevent rollback of all SQL statements executed 
+	  within the context of a transaction
+	- Using @Transactional annotation, SQL statements are going to share the same transaction
+----------------------------------------------------------------------------------------------------------------------
+	- How to use @Transactional annotion with additional configurations:
+		> Propagation:
+			- specifies how the transaction propagates through the execution of the code. @Transactional has a propagation attribute
+			- Types
+				>> REQUIRED
+					- default type
+					- supports a current transaction and creates a new one if does none exists
+				>> SUPPORTS
+					- supports a current transaction and executes non-transactionally if none exists
+				>> MANDATORY
+					- supports a current transaction. If none exists, Spring will throw a IllegalTransactionStateException exception
+				>> NEVER
+					- if there is a transaction in progress, an exception of type IllegalTransactionStateException will be thrown
+				>> NOT_SUPPORTED
+					- suspends a current transaction if one exists
+				>> REQUIRES_NEW
+					- suspends current transaction if one exists and create a new one. When the new one ends, the suspended transaction will be resumed
+				>> NESTED
+			- Current transaction refers to a transaction coming from outside. For example, we have a controller with @Transactional and a service of type 
+			  @Service and @Transactional. If the controller calls the service, transaction from the controller will be the current transaction
+----------------------------------------------------------------------------------------------------------------------
+	> Isolation levels
+		- All isolation levels except SERIALIZABLE are subject to data anomalies or phenomena that might occur according to the following
+		- The weaker the isolation level, the more anomalies can occur
+		- READ_COMMITTED is the default level in many RDBMS like oracle, SQL server and Postgres
+		- Spring's @Transactional annotation has an isolation attribute as follows:
+			>> @Transactional(isolation = Isolation.DEFAULT)
+			>> @Transactional(isolation = Isolation.READ_UNCOMMITTED)
+			>> @Transactional(isolation = Isolation.READ_COMMITTED)
+			>> @Transactional(isolation = Isolation.REPEATABLE_READ)
+			>> @Transactional(isolation = Isolation.SERIALIZABLE)
+		- levels are:
+			> READ UNCOMMITED: concurrent transactions can see uncommitted data between them. So dirty read phenomenon can occur
+			> READ COMMITTED: only committed data can be seen in concurrent transactions. Dirty read is prevented but non-repeatable and phantom-read are allows
+			> REPEATABLE READ: guarantees record will be the same when read multiple times in a transaction regardless if it has been changed and committed
+			  in another concurrent transaction, thus non-repeatable and phantom read are prevented
+			> SERIALIZABLE: highest level, prevents all three phenomena, but impacts performance because database is trying to guarantee higher level of
+			  data integrity by executing calls sequentially
+			========================================================================================================================================
+			ISOLATION LVL					DIRTY READ				NON_REPEATABLE_READ				PHANTOM READ
+			----------------------------------------------------------------------------------------------------------------------------
+			READ_UNCOMMITTED				allowed						allowed							allowed
+			READ_COMMITTED					prevented					allowed							allowed
+			REPEATABLE_READ					prevented					prevented						allowed
+			SERIALIZABLE					prevented					prevented						prevented
+			========================================================================================================================================
+----------------------------------------------------------------------------------------------------------------------
+	> rollback rules
+		>> Rollbacks occur at unchecked exceptions. To enable/disable rollback when a method throws checked exceptions, we can use the following attribute
+		>> rollbackFor or rollbackForClassName to rollback a transaction on checked exceptions on runtime
+			----------------------------------------------------------------------------------------------
+			@Transactional(rollbackFor = {SomeException.class})
+			public void doSomethingAndRollback(Example example) {
+				....
+				throw new SomeException("....");
+			}
+			----------------------------------------------------------------------------------------------
+		>> noRollbackFor or noRollbackForClassName to prevent rollback of a transaction on checked exceptions on runtime
+			----------------------------------------------------------------------------------------------
+			@Transactional(noRollbackFor = {SomeException.class})
+			public void doSomethingAndRollback(Example example) {
+				....
+				throw new SomeException("....");
+			}
+----------------------------------------------------------------------------------------------------------------------
+	> Transaction Logging:
+		to better understand transactions and their issues, we can configure the package 'org.springframework.transaction' with logging level of TRACE
+		
+----------------------------------------------------------------------------------------------------------------------
+	> ACID principle
+		- Atomicity: means that all statements within the scope of a transaction either succeed or rollback
+		- Consistency: means that constraints are enforced on all committed transactions
+		- Isolation: means that uncommitted state changes are hidden from the outside world
+			>> READ_UNCOMMITTED
+				>>>> rarely needed
+				>>>> allows dirty read
+			>> READ_COMMITTED
+				>>>> prevents dirty read and allows non-repeatable-read and phantom-read
+				>>>> can prevent non-repeatable-read using shared-lock
+			>> REPEATABLE_READ
+				>>>> prevents dirty and non-repeatable reads
+			>> SERIALIZABLE
+		- Durability
+----------------------------------------------------------------------------------------------------------------------
+	> Data anomalies or read phenomena:
+		> DIRTY READ:
+			- means a transaction can read uncommitted changes of another concurrent transaction because there is no lock
+			- this phenomenon is risky because uncommitted changes might get rolled back
+			- Only READ_UNCOMMITTED isolation level allows this phenomenon. The rest of levels prevent it
+		EXAMPLE==============================================================================================================================================
+			- both transactions are started
+			- transaction 1 modified the subject of one record in post table but not yet committed
+			- transaction 2 read the record with the updated subject which is uncommitted
+			- transaction 1 then is rolledback to the initial record
+		Transaction 1													  DATABASE													           Transaction 2
+		||																	|| post (id=1, subject='transaction'									||
+		||---------------------------BEGIN TRANSACTION--------------------> || <------------------------BEGIN TRANSACTION---------------------------||
+		||																	||																		||
+		||																    ||																		||
+		||																	||																		||
+		||																	||																		||
+		||																	||   																	||
+		||-------UPDATE post SET subject='ACID' WHERE id=1 ---------------> || post (id=1, subject='ACID')											||
+		||																	||   																	||
+		|| 																	|| <-----------------SELECT * FROM post WHERE id=1----------------------||
+		||																	||					  post(id=1, subject='ACID')  						||
+		||																	||																		||
+		||																	||																		||
+		||																	||																		||
+		||																	||																		||
+		||																	||																		||
+		||---------------------------ROLLBACK-----------------------------> || post (id=1, subject='transaction')									||
+		=====================================================================================================================================================	
+		> NON-REPEATABLE READ
+			- if the transaction reads a database row without applying a shared lock to the newly fetched record then a concurrent transaction might change  
+			  this row before the first transaction has ended
+			- to prevent this problem, current row version can be verified so that a transaction can be aborted if a previously fetched record has changed
+			- REPEATABLE_READ and SERIALIZABLE prevent this phenomenon by default
+			- READ_COMMITTED only prevents it if shared locks are acquired explicitly
+			- JPA/Hibernate offer application-level repeatable reads. First snapshot of retrieved entity is cached
+		EXAMPLE==============================================================================================================================================
+			- both transactions are started
+			- transaction 2 reads a record with subject='transaction'
+			- transaction 1 modifies the subject of one record in post table
+			- transaction 1 gets committed
+			- transaction 2 read the record again and returns with the different version of the record (subject='ACID')
+			
+		Transaction 1													  DATABASE													           Transaction 2
+		||																	|| post (id=1, subject='transaction'									||
+		||---------------------------BEGIN TRANSACTION--------------------> || <------------------------BEGIN TRANSACTION---------------------------||
+		||																	||																		||
+		||																    ||																		||
+		|| 																	|| <-----------------SELECT * FROM post WHERE id=1----------------------||
+		||																	||					post(id=1, subject='transaction')  					||
+		||																	||   																	||
+		||																	||																		||
+		||-------UPDATE post SET subject='ACID' WHERE id=1 ---------------> || post (id=1, subject='ACID')											||
+		||																	||																		||
+		||---------------------------COMMIT-------------------------------->|| post (id=1, subject='ACID')											||
+		||																	||   																	||
+		||																	||																		||
+		|| 																	|| <-----------------SELECT * FROM post WHERE id=1----------------------||
+		||																	||					  post(id=1, subject='ACID')  						||
+		||																	||																		||
+		||																	||																		||
+		||---------------------------ROLLBACK-----------------------------> || post (id=1, subject='transaction')									||
+		=====================================================================================================================================================
+		
+		> PHANTOM READ
+			- Similar to non-repeatable read, but in this case, it occurs when a query returns more than one record and another query in another transaction
+			  inserts or deletes a record that impacts the result of the first query in the other transaction

@@ -1,0 +1,6 @@
+Cascase types
+
+sources
+(
+	https://vladmihalcea.com/a-beginners-guide-to-jpa-and-hibernate-cascade-types/
+)

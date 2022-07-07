@@ -1,0 +1,6 @@
+Multiple data sources
+source
+(
+	https://www.baeldung.com/spring-transactions-read-only
+	https://www.baeldung.com/spring-abstract-routing-data-source
+)

@@ -1,0 +1,49 @@
+Database connection pooling
+
+sources
+(
+
+)
+
+	topics:
+
+		- flow of connecting an application to database
+		- why do we need connection pooling?
+		- why is connection pooling faster than no pooling?
+		- connection pool settings
+		
+	-----------------------------------------------------------------------------------
+	
+	- flow of connecting an application to database:
+	OPEN A CONNECTION
+	=====================================================================================================================================================
+	Application  -->  java.sql.DataSource  -->  java.sql.Driver  -->  java.sql.Connection  -->  java.sql.SocketFactory  -->  java.sql.Socket  -->  RDBMS	=====================================================================================================================================================
+	CLOSE A CONNECTION
+	Application  -------------------------------------------------->  java.sql.Connection  ------------------------------->  java.sql.Socket  -->  RDBMS
+	
+	Flow goes like this
+		1- Application data layer asks datasource for connection
+		
+		2- Datasource uses database Driver to open a database connection
+		
+		3- Database connection is created and a TCP socket is opened
+		
+		4- Application reads/writes to the database
+		
+		5- Connection is no longer required so it is closed
+	
+	- why do we need connection pooling?
+		> The process of opening/closing TCP connections is expensive and the high rate of these operations can put a strain on database management system
+		> Connection pooling is faster
+		
+	- why is connection pooling faster than no pooling?
+		> When a connection is requested, the datasource will acquire a new connection from the connections pool
+		> If there are no available connections or the pool hasn't yet reached its maximum size, the pool will create new connection
+		> The pool's connection close() method doesn't close a connection, instead, it will return a connection to the pool
+		
+	- connection pool settings
+		> minimum size
+		> maximum size
+		> max idle time
+		> acquire timeout
+		> timeout retry attempts

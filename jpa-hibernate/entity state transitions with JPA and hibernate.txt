@@ -1,0 +1,72 @@
+entity state transitions with JPA and hibernate
+
+sources
+(
+	https://vladmihalcea.com/a-beginners-guide-to-jpa-hibernate-entity-state-transitions/
+)
+
+	topics:
+		- entity states
+			> Transient
+			> Persistent (Managed)
+			> Detached
+				>> reattach a detached entity
+				>> merge a detached entity
+			> Removed
+		- JPA EntityManager vs Hibernate Session methods
+
+	-------------------------------------------------------------------------------------
+	
+	Entity states:
+	
+	1. Transient
+		- newly created and not assosiated with any hibernate Session (Persistence Context)
+		- not mapped to any row in the database
+		- to persist a Transient entity, we can call entityManager.persist() method
+		
+	2. Persistent (Managed)
+		- associated with a database table row
+		- managed by Hibernate Persistence Context
+		- changes to persist entity instances are detached at flush time
+		
+	3. Detached
+		- a previously managed entity becomes detached when Persistence Context is closed
+		- detaching an entity can be done using clear() and close() methods
+		- when Persistence Context is closed, any successive changes will not be tracked and there will be no automatic database synchronization
+		- detached entities can be associated with a Hibernate Session using 2 approaches:
+			> reattach:
+				>> it can be reattached only if there is no object (matching the same row) currently associated with the Hibernate Session
+			>> merge:
+	
+	4. Removed:
+		- JPA only allows managed entities to be removed
+		- Hibernate allows detached entities to be removed using Session.delete() method
+		
+----------------------------------------------------------------------------------------------------------------------------------
+JPA EntityManager vs Hibernate Session methods
+	- Hibernate Session interface extends JPA EntityManager and offers additional methods
+	- when calling EntityManager's persist() method, the entity is only attached to the Persistence Context while INSERT is postponed until flush is called
+	- when calling EntityManager's persist() method, the id id first assigned before attaching the entity to Persistence Context
+	- In case of IDENTITY generator, the INSERT happens right away
+===================================================================================================================================================			
+											JPA EntityManager										HIBERNATE SESSION
+===================================================================================================================================================			
+to persist transient entity			  			persist()									persist(), save(), saveOrUpdate()
+---------------------------------------------------------------------------------------------------------------------------------------------------
+to persist detached entity						merge()										update(), saveOrUpdate(), lock(), replicate()
+---------------------------------------------------------------------------------------------------------------------------------------------------
+to persist removed entity					   persist()									persist(), save()
+---------------------------------------------------------------------------------------------------------------------------------------------------
+to detach an entity						detach(), clear(), close()							evict(), clear(), close()
+---------------------------------------------------------------------------------------------------------------------------------------------------
+to make the state of detached 
+entity as a new persistent																	merge()
+instance																			
+---------------------------------------------------------------------------------------------------------------------------------------------------
+to fetch persistent 							find()										get(), load()
+---------------------------------------------------------------------------------------------------------------------------------------------------
+to remove a managed entity					   delete()										delete()
+---------------------------------------------------------------------------------------------------------------------------------------------------
+to force session to flush
+must be called before committing			   flush()										flush()					
+transaction and closing session

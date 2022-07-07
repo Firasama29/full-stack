@@ -1,0 +1,15 @@
+One To Many and Many To One
+sources 
+(
+	https://vladmihalcea.com/the-best-way-to-map-a-onetomany-association-with-jpa-and-hibernate/
+	https://vladmihalcea.com/a-beginners-guide-to-jpa-and-hibernate-cascade-types/
+)
+
+	topics:
+		- unidirectional vs bidirectional
+		
+		
+		
+	> Unidirectional @OneToMany mapping
+		- default behavior: JPA will create a third table which contains the ids of the two tables
+		- Solution: use @JoinColumn(name = "table_id") which lets Hibernate know that there is a foreign key that defines this association

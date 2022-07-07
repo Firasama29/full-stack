@@ -1,0 +1,130 @@
+JPA/hibernate articles
+
+>>>> READ
+The best way to implement equals, hashCode, and toString with JPA and Hibernate	(done)
+(https://vladmihalcea.com/the-best-way-to-implement-equals-hashcode-and-tostring-with-jpa-and-hibernate/)
+
+The anatomy of Connection Pooling
+(https://vladmihalcea.com/the-anatomy-of-connection-pooling/)
+
+Overview of JPA/Hibernate Cascade Types
+(https://www.baeldung.com/jpa-cascade-types)
+
+--------------------TRANSACTIONS
+beginners guide to ACID and database transactions
+(https://vladmihalcea.com/a-beginners-guide-to-acid-and-database-transactions/)
+
+The best way to use the Spring Transactional annotation
+(https://vladmihalcea.com/spring-transactional-annotation/)
+
+Transactions with Spring and JPA
+(https://www.baeldung.com/transaction-configuration-with-jpa-and-spring#search)
+
+A beginner’s guide to Dirty Read anomaly
+(https://vladmihalcea.com/dirty-read/)
+
+A beginner’s guide to Non-Repeatable Read anomaly
+(https://vladmihalcea.com/non-repeatable-read/)
+
+A beginner’s guide to Phantom Read anomaly
+(https://vladmihalcea.com/phantom-read/)
+
+A beginner’s guide to Serializability
+(https://vladmihalcea.com/serializability/)
+------------------------------------------------------------------------------------------------------------------------------
+>>>> READING
+
+------------------------------------------------------------------------------------------------------------------------------
+>>>> TO-READ
+
+A beginner’s guide to entity state transitions with JPA and Hibernate
+(https://vladmihalcea.com/a-beginners-guide-to-jpa-hibernate-entity-state-transitions/)
+
+The ultimate guide on DB-generated IDs in JPA Entities
+(https://www.jpa-buddy.com/blog/the-ultimate-guide-on-db-generated/)
+
+How does a relational database execute SQL statements and prepared statements
+(https://vladmihalcea.com/relational-database-sql-prepared-statements/)
+
+How do persist and merge work in JPA
+(https://vladmihalcea.com/jpa-persist-and-merge/)
+
+A beginner’s guide to database table relationships
+(https://vladmihalcea.com/database-table-relationships/)
+
+Default Database Primary, Foreign, and Unique Key Indexing
+(https://vladmihalcea.com/default-database-key-indexing/)
+
+The best way to lazy load entity attributes using JPA and Hibernate
+(https://vladmihalcea.com/the-best-way-to-lazy-load-entity-attributes-using-jpa-and-hibernate/)
+
+Why and when you should use JPA
+(https://vladmihalcea.com/why-and-when-use-jpa/)
+
+How do JPA persist, merge and Hibernate save, update, saveOrUpdate methods work
+(https://vladmihalcea.com/jpa-persist-merge-hibernate-save-update-saveorupdate/)
+
+How to implement equals and hashCode using the JPA entity identifier (Primary Key)
+(https://vladmihalcea.com/how-to-implement-equals-and-hashcode-using-the-jpa-entity-identifier/)
+
+Hibernate One to Many Annotation Tutorial
+(https://www.baeldung.com/hibernate-one-to-many)
+
+What is the difference between Hibernate and Spring Data JPA
+(https://stackoverflow.com/questions/23862994/what-is-the-difference-between-hibernate-and-spring-data-jpa/23863416?stw=2#23863416)
+
+JPA and Hibernate – Criteria vs. JPQL vs. HQL Query
+(https://www.baeldung.com/jpql-hql-criteria-query)
+
+Hibernate LazyToOne annotation
+(https://vladmihalcea.com/hibernate-lazytoone-annotation/)
+
+A beginner’s guide to JPA and Hibernate Cascade Types
+(https://vladmihalcea.com/a-beginners-guide-to-jpa-and-hibernate-cascade-types/)
+
+--------------------TRANSACTIONS
+Spring Core: Managing Transactions effectively
+(https://medium.com/javarevisited/spring-core-managing-transactions-effectively-781bba6c47e8)
+
+transactions configuration with JPA and spring
+(https://www.baeldung.com/transaction-configuration-with-jpa-and-spring#search)
+
+Handling Distributed Transactions in the Microservice world
+(https://medium.com/swlh/handling-transactions-in-the-microservice-world-c77b275813e0)
+
+Read-write and read-only transaction routing with Spring
+(https://vladmihalcea.com/read-write-read-only-transaction-routing-spring/)
+
+A beginner’s guide to transaction isolation levels in enterprise Jav
+(https://vladmihalcea.com/a-beginners-guide-to-transaction-isolation-levels-in-enterprise-java/)
+
+How to get the current database transaction id
+(https://vladmihalcea.com/current-database-transaction-id/)
+
+@Transactional Rollback options in Spring Data
+(https://www.initgrep.com/posts/java/spring/Spring-data-transactional-rollback)
+
+Transaction Management in Microservices (implementation guide)- part 1
+(https://amirsh71.medium.com/transaction-management-in-microservices-implementation-guide-part-1-8da3c31bfb31)
+
+Microservices Distributed Transactions
+(https://medium.com/design-microservices-architecture-with-patterns/microservices-distributed-transactions-a71a996e5db8)
+
+
+
+How to map multiple JPA entities to one database table with Hibernate
+(https://vladmihalcea.com/map-multiple-jpa-entities-one-table-hibernate/)
+
+A beginner’s guide to Hibernate fetching strategies
+(https://vladmihalcea.com/hibernate-facts-the-importance-of-fetch-strategy/)
+
+Introduction to HikariCP
+(https://www.baeldung.com/hikaricp)
+
+Configuring a Hikari Connection Pool with Spring Boot
+(https://www.baeldung.com/spring-boot-hikari)
+
+Vlad Mihalcea articles
+(https://vladmihalcea.com/tutorials/hibernate/)
+
+

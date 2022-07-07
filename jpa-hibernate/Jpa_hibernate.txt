@@ -1,0 +1,63 @@
+JPA / Hibernate
+
+sources
+(
+	https://vladmihalcea.com/database-table-relationships/
+	https://vladmihalcea.com/the-best-way-to-map-a-onetomany-association-with-jpa-and-hibernate/
+)
+
+	topics
+	--------
+		- Hibernate Persistence Context
+		- relational mapping
+					>> @OneToMany, @ManyToMany, @OneToOne, @ManyToOne
+					>> default fetch type for relation mapping
+					>> fetchType.Lazy vs fetchType.EAGER
+					>> relational directions and mappedBy
+					>> @JoinTable, @JoinColumn
+					>> Cascade types
+				
+		- spring.jpa.show-sql=true
+		- spring.jpa.properties.hibernate.format_sql=true
+		- jpa.hibernate.ddl.auto options
+		- logging property
+		- spring.profiles.active
+		- spring.datasource property
+					
+					
+				
+				
+	- Relational Mapping
+
+		- @OneToOne and @ManyToOne have default eager fetchType
+		- @ManyToMany and @OneToMany have default lazy fetchType
+		
+		
+		@OneToMany and @ManyToOne
+			- two tables are linked based on a foreign key column in a child table which references a primary key of a parent table row
+		- You can use @JoinColumn with @OneToOne and @ManyToOne
+	
+		- mappedBy is required for bidirectional relationships
+	
+		- @JoinColumn should be used in the target entity that will have the foreign key
+	
+	
+	- spring.jpa.show-sql: true to show ddl in the logs
+	
+	- spring.jpa.properties.hibernate.format_sql: true to format and pretty print SQL queries
+	
+	- jpa.hibernate.ddl.auto has multiple options (SEE FILE hibernate_ddl_auto)
+	
+	- logging: 
+		config: classpath:logback/logblack-${spring.profiles.active}.xml
+		- make sure you define ${spring.profiles.active} property in application file (SEE BELOW DETAILS FOR profile property
+		- make sure to create a logback file based on each profile
+		
+	- spring.profiles.active
+		- the value should be set as follows:
+			>> in application.yaml or application.properties: 	local
+			>> in helm/values.yaml:								dev
+			>> in helm/values-uat.yaml:							uat
+			>> in helm/values-sit.yaml: 						sit
+			>> in helm/values-prod.yaml:						prod
+		
