@@ -1,0 +1,35 @@
+Persistence Context
+
+sources
+(
+	https://www.baeldung.com/jpa-hibernate-persistence-context
+)
+
+	topics:
+	     - What is Persistence Context
+	     - Types of Persistence Context
+	     
+	
+------------------------------------------------------------------------------------
+     > What is Persistence Context
+          - It's a first-level cache where object instances are stored to the database or fetched from the database
+          - It resides between the application and persistence database
+          - keeps track of changes to the managed entity. If there are any changes during a transaction, the entity is marked
+            as dirty, and if the transaction completes, the entity is flushed to the database
+          - It's benefitial because calls to the database are expensive and impacts performance. So Persistence Context offers
+            temporary storage to reduce the number of calls to database
+          - EntityManager checks for Persistence Context. If it doesn't find it, it will create a new one  
+     -----------------------------------------------------------------------------------------------
+     > Types of Persistence Context:
+     	1. Transaction-scoped
+     	     - enabled by default
+     	     - bound to a transaction. When a transaction is completed, the entity is flushed to the database
+     	     - @PersistenceContext
+     	        private EntityManager em;
+     	        
+     	2. Extended-scoped
+     	     - In this case, Persistence Context can span across multiple transactions
+     	     - We can persist the entity without a transaction but we cannot flush it without a transaction
+     	     - @PersistenceContext(type=PersistenceContexttype.EXTENDED)
+     	       private EntityManager em;        
+     	     

@@ -1,4 +1,4 @@
-JPA / Hibernate
+PA / Hibernate
 
 sources
 (
@@ -23,8 +23,12 @@ sources
 		- logging property
 		- spring.profiles.active
 		- spring.datasource property
+		- javax.persistence VS org.hibernate.annotations
+		- first-level cache
+		- second-level cache
+		- how to enable second-level cache in spring boot project
 					
-					
+	-------------------------------------------------------------------------------------------------------------------				
 				
 				
 	- Relational Mapping
@@ -60,4 +64,131 @@ sources
 			>> in helm/values-uat.yaml:							uat
 			>> in helm/values-sit.yaml: 						sit
 			>> in helm/values-prod.yaml:						prod
+
 		
+	- javax.persistence VS org.hibernate.annotations:
+		> javax.persistence is provided by JPA, while org.hibernate.annotations is from Hibernate
+		
+		> annotations and attributes
+		--------------------------------------------------------------------------------------------------------
+			JPA																Hibernate
+		--------------------------------------------------------------------------------------------------------
+		* annotations	
+			@Cascade
+				- CascadeType(enum)
+					- ALL
+					- PERSIST
+					- MERGE
+					- REMOVE
+					- REFRESH
+					- DELETE
+					- SAVE_UPDATE
+					- REPLICATE
+					- LOCK
+					- DETACH
+					
+			@Column
+				- name
+				- unique(boolean)
+				- nullable(boolean)
+				- insertable(boolean)
+				- updatable(boolean)
+				- columnDefinition
+				- table
+				- length
+				- precision(int)
+				- scale(int)
+				
+			@Embeddable (for class)
+			
+			@Embedded	(for field or property)
+			
+			@EmbeddedId
+			
+			@Entity (name)
+			
+			@Enumerated
+				- value = EnumType.ORDINAL
+				- value = EnumType.STRING
+			
+			@Table
+			
+			@OneToMany (default LAZY)
+				- cascade
+				- fetch = FetchType.EAGER or FetchType.LAZY
+				- mappedBy
+			
+			@OneToOne (default EAGER)
+				- cascade
+				- fetch = FetchType.EAGER or FetchType.LAZY
+				- mappedBy
+				- orphanRemoval
+			
+			@ManyToMany (default LAZY)
+				- cascade
+				- fetch = FetchType.EAGER or FetchType.LAZY
+				- mappedBy
+			
+			@ManyToOne (default EAGER)
+				- cascade
+				- fetch = FetchType.EAGER or FetchType.LAZY
+			
+			@JoinColumn
+				- name
+				- referencedColumnName
+				- unique(boolean)
+				- nullable(boolean)
+				- insertable(boolean)
+				- updatable(boolean)
+				- columnDefinition
+				- table
+			
+			@JoinTable(name, schema, joinColumns, inverseJoinColumns, foreignKey)
+			
+			@GeneratedValue
+				- strategy
+					- GenerationType.AUTO
+					- GenerationType.IDENTITY
+					- GenerationType.TABLE
+					- GenerationType.SEQUENCE
+				- generator
+			
+			@Id
+			
+		
+		* attributes
+			FetchType 			(enum -> LAZY or EAGER)
+			joinColumns 		(for @JoinTable)
+			inverseJoinColumns 	(for @JoinTable)
+			foreignKey 			(for @JoinTable)
+			strategy			(for @GeneratedValue)
+			generator			(for @GeneratedValue)
+			
+			
+			
+			
+			
+			@GenericGenerator
+				- name
+				- strategy
+			@GenericGenerators
+				- GenericGenerator
+				
+	---------------------------------------------------------------------------------------
+	- first level cache in hibernate
+		> It's the Persistence Context
+		> In JPA it's represented by EntityManager and in Hibernate it's represented by Session
+		> Hibernate enables it by default for entities within a session
+		> is used to optimize communication with database by reducing database round-trips
+		> 
+	---------------------------------------------------------------------------------------
+	- how to enable second-level cache in spring boot project
+		1 > in application.properties, add the following property:
+			spring.jpa.properties.hibernate.cache.user_second_level_cache=true
+		
+		2 > specify caching framework
+			spring.jpa.properties.hibernate.cache.region.factory_class=org.hibernate.cache.ehcache.EhCacheRegionFactory
+		
+		3 > In Entity class, add @Cacheable annotation
+Jpa_hibernate.txt
+Displaying Jpa_hibernate.txt.
