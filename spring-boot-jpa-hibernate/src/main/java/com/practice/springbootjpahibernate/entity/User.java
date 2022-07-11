@@ -1,4 +1,4 @@
-package com.practice.entity;
+package com.practice.springbootjpahibernate.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,23 +8,25 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "user")
 public class User {
-    @Id
-    private int userId;
-    @Column(name = "user_name")
-    private String userName;
-    public User(){}
 
-    public User(int userId, String userName) {
-        this.userId = userId;
+    @Id
+    private int id;
+    @Column(name="user_name")
+    private String userName;
+
+    public User() {}
+
+    public User(int id, String userName) {
+        this.id = id;
         this.userName = userName;
     }
 
-    public int getUserId() {
-        return this.userId;
+    public int getId() {
+        return this.id;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getUserName() {
@@ -34,5 +36,4 @@ public class User {
     public void setUserName(String userName) {
         this.userName = userName;
     }
-
 }

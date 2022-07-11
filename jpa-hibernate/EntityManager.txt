@@ -1,32 +1,109 @@
 EntityManager
 (
 	https://www.baeldung.com/hibernate-entitymanager
+	https://dzone.com/articles/jpa-entitymanagerfactory-interface-with-example
 )
 
-	- EntityManager is part of Java Persistance API
-	- EntityManager allows us to access the Persistence Context using APIs
-	- EntityManager API provides a collection of methods to interact with the database:
-		> EntityManager em = EntityManager.getEntityManager();
+	topics:
+	- WHAT IS AN ENTITYMANAGER
+	- STEPS TO USE ENTITYMANAGER IN A PROJECT
+	- CONTAINER-MANAGED VS APPLICATION-MANAGED ENTITYMANAGER
+	- ENTITYMANAGER METHODS
+	
+===========================================================================================================================================================
+	> WHAT IS AN ENTITYMANAGER
+	     - EntityManager is part of Java Persistance API
+	     - EntityManager allows us to access the Persistence Context using APIs that interact and modify the entity states
+	       (transient, persistent, detached)
+	     - EntityManagerFactory is thread-safe, but EntityManager is not as each thread is meant to have its own instance of EntityManager 
+	     - In Application-managed EntityManager, we can manage the creation of thread-safe instances where each thread has its own instance
+	     - In container-managed EntityManager, the container (for example, Spring) injects a special proxy instead of a simple EntityManager,
+	       so that the proxy will either reuse existing instance or create a new one, thus confining EntityManager instances to one thread.
+	
+	..................................................................................................
+	> STEPS TO USE ENTITYMANAGER IN A PROJECT
+		1. Create a maven project
 		
+		2. add hibernate dependency
+			<dependency>
+			     <groupId>org.hibernate</groupId>
+			     <artifactId>hibernate-core</artifactId>
+			     <version>${version}</version>
+			</dependency>
+		
+		3. add database dependency
+			for example, postgresql dependency
+			<dependency>
+			     <groupid>org.postgresql</groupId>
+			     <artifactId>postgresql</artifactId>
+			     <version>42.4.2</version>
+			</dependency>
+			
+		4. create persistence.xml file in /resources which will contain configuration for EntityManager
+			------------------------------------------------------------------------------------------------------------------------------
+				<!-- this file contains configuration for the EntityManager -->
+				<persistence-unit name="com.practice.jpa-hibernate">
+				    <description>EntityManager and Session Demo</description>
+				    <class>com.practice.entity.User</class>
+				    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+				    <properties>
+					<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
+					<property name="hibernate.hbm2ddl.auto" value="create"/>
+					<property name="javax.persistence.jdbc.driver" value="com.Postgresql.Driver"/>
+					<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/hibernateDB"/>
+					<property name="javax.persistence.jdbc.user" value="postgres"/>
+					<property name="javax.persistence.jdbc.password" value="password"/>
+				    </properties>
+				</persistence-unit>
+			------------------------------------------------------------------------------------------------------------------------------
+			
+	....................................................................................................
+	> CONTAINER-MANAGED VS APPLICATION-MANAGED ENTITYMANAGER
+		- There are 2 ways to manage an EntityManager:
+			>> Manually managing the EntityManager
+				step 1. Create an EntityManagerFactory
+				     -------------------------------------------------------------------------------	
+					EntityManagerFactory emf = Persistence.createEntityManagerFactory("....");
+				     -------------------------------------------------------------------------------	
+				step 2. Create an EntityManager instance from EntityManagerFactory
+				     -------------------------------------------------------------------------------
+					EntityManager em = emf.createEntityManager();
+				     -------------------------------------------------------------------------------	
+				step 3. Once our work is done, we need to close the Entitymanager and EntityManagerFactory
+				     -------------------------------------------------------------------------------
+					em.close();
+					emf.close();
+				     -------------------------------------------------------------------------------
+				     		
+			>> Injecting EntityManager using Container, which really creates it from EntityManagerFactory
+				The container is also responsible for creating a transaction, committing it, rolling it back as well as closing the 
+				EntityManager
+				---------------------------------
+					@PersistenceContext
+					Entitymanager entityManager;
+					
+	....................................................................................................				
+	> ENTITYMANAGER METHODS:
+		EntityManager API provides a collection of methods to interact with the database:
+		____________________________________________________________________________________
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PERSISTENCE");
+		EntityManager em = emf.createEntityManager();
+		em.getTransaction().begin();
 			>> persisting entities (entity will be in persistent state)
-				em.getTransaction().begin();
+				
 				setters...
 				em.persist(entity);
 				
 				e.getTransaction().commit();
 			
-			
 			>> finding an entity by id
 				
 				Entity entity = e.find(Entity.class, new Long(id));
-				em.detach(entity);
 				return entity;
-				
 				
 			>> detaching an entity from the persistence context (entity will be in detach state)
 				em.detach(entity);
 				
-			
 			>> merging an entity
 				em.merge(entity);
 				
@@ -35,7 +112,6 @@ EntityManager
 				List<?> entityList = em.createQuery("SELECT e FROM entity e WHERE e.id = ?1")
 										.setParameter(1, 1).getResultList();
 									return entityList;
-			
 			
 			>> Removing entities
 				em.getTransaction().begin();

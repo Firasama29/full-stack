@@ -22,6 +22,6 @@
         <property name="hbm2ddl.auto">create</property>
 
         <!-- Names the annotated entity class -->
-        <mapping class="com.practice.entity.User"/>
+        <mapping class="com.practice.entity.Users"/>
     </session-factory>
 </hibernate-configuration>
