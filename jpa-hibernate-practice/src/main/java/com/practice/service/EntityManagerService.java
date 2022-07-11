@@ -42,7 +42,6 @@ public class EntityManagerService {
         //update user
         user.setUserName("Firas");
         em2.merge(user);
-        em2.getTransaction().commit();
         em2.close();
         emf.close();
     }

@@ -19,7 +19,7 @@ EntityManager
 	     - In Application-managed EntityManager, we can manage the creation of thread-safe instances where each thread has its own instance
 	     - In container-managed EntityManager, the container (for example, Spring) injects a special proxy instead of a simple EntityManager,
 	       so that the proxy will either reuse existing instance or create a new one, thus confining EntityManager instances to one thread.
-	
+	     - entity states are not synchronized when EntityManager methods are called. They're only changed as soon as flush() method is called	
 	..................................................................................................
 	> STEPS TO USE ENTITYMANAGER IN A PROJECT
 		1. Create a maven project

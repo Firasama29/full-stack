@@ -8,6 +8,7 @@ sources
 	https://vladmihalcea.com/non-repeatable-read/
 	https://vladmihalcea.com/phantom-read/
 	https://medium.com/codex/the-basics-of-spring-framework-transactions-6a99045dba8
+	https://www.youtube.com/watch?v=SUQxXg229Xg&ab_channel=ThorbenJanssen
 )
 	topics:
 		- what is a transaction

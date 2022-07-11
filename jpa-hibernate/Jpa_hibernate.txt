@@ -4,6 +4,8 @@ sources
 (
 	https://vladmihalcea.com/database-table-relationships/
 	https://vladmihalcea.com/the-best-way-to-map-a-onetomany-association-with-jpa-and-hibernate/
+	https://vladmihalcea.com/jpa-hibernate-first-level-cache/
+	https://vladmihalcea.com/jpa-hibernate-second-level-cache/
 )
 
 	topics
@@ -60,10 +62,10 @@ sources
 	- spring.profiles.active
 		- the value should be set as follows:
 			>> in application.yaml or application.properties: 	local
-			>> in helm/values.yaml:								dev
-			>> in helm/values-uat.yaml:							uat
-			>> in helm/values-sit.yaml: 						sit
-			>> in helm/values-prod.yaml:						prod
+			>> in helm/values.yaml:					dev
+			>> in helm/values-uat.yaml:				uat
+			>> in helm/values-sit.yaml: 				sit
+			>> in helm/values-prod.yaml:				prod
 
 		
 	- javax.persistence VS org.hibernate.annotations:
@@ -177,10 +179,20 @@ sources
 	---------------------------------------------------------------------------------------
 	- first level cache in hibernate
 		> It's the Persistence Context
+		> Hibernate stores the entities in the following map
+		  __________________________________________________________________________________
+		  Map<EntityUniqueKey, Object> entitiesByUniqueKey = new HashMap<>(INIT_COLL_SIZE);
+		  __________________________________________________________________________________
+		> It's essentially a Map where the key is an object that encapsulates the entity name and its identifier
+		  and the Map value is the entity itself
+		  
 		> In JPA it's represented by EntityManager and in Hibernate it's represented by Session
 		> Hibernate enables it by default for entities within a session
 		> is used to optimize communication with database by reducing database round-trips
-		> 
+		> When fetching a JPA entity, Hibernate first checks if the entity exists in first-level cache.
+		> If the entity exists in first-level cache, the managed entity will be returned.
+		> If it doesn't exist in second-level cache, Hibernate will check second-level cache (if it's enabled)
+		> If it doesn't exist in first or second-level, Hibernate will load it from DB using SQL query
 	---------------------------------------------------------------------------------------
 	- how to enable second-level cache in spring boot project
 		1 > in application.properties, add the following property:
@@ -190,5 +202,3 @@ sources
 			spring.jpa.properties.hibernate.cache.region.factory_class=org.hibernate.cache.ehcache.EhCacheRegionFactory
 		
 		3 > In Entity class, add @Cacheable annotation
-Jpa_hibernate.txt
-Displaying Jpa_hibernate.txt.
