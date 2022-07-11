@@ -1,0 +1,115 @@
+docker
+sources()
+
+		topics:
+		- reasons applications may run on one machine but not in another
+		- features of docker containers
+		- what are virtual machines
+		- difference between containers and virtual machines
+		- docker archeticture (client - server)
+		- how docker packages an application
+		- how to run java without installation
+		- how to run commands from a container inside another container
+		- how to run database using docker
+		- mounting local directories to docker container using volumes
+		- how to manage volumes
+		- docker volumes
+		
+----------------------------------------------------------------------------------------------------------
+
+	> reasons applications may run on one machine but not in another:
+		- different configutation settings
+		- one or more files are missing
+		- software version mismatch
+		
+    ------------------------------------------    
+	> features of docker containers
+		- packages an application and all its dependencies so it can be run anywhere in isolated manner
+		- containerized apps can work the same way in any environment on any machine so no setup and 
+		  configuration are not required
+		- we can remove an app with all its dependencies in one go	
+
+	------------------------------------------
+	> difference between containers and virtual machines
+	-------------------------------------------------------------------------------------------------------------------------------------------
+	virtual machine																	container
+	-------------------------------------------------------------------------------------------------------------------------------------------
+	- an abstraction of a machine												- isolated environment for running an application
+	
+	- virtualizes physical hardware												- virtualizes operating system
+	
+	- multiple VMs can be run in one physical machine, each running  			- multiple containers can run with multiple applications		
+	  an application with different version of same software                      and different versions of the same software
+	  using hypervisor							
+	  
+	- hypervisor is a software used to create & manage virtual machines			- uses docker daemon
+	
+	- examples of hypervisor (VirtualBox, VMware, Hyper-v)
+	
+	- each virtual machine needs full copy of an operating system				- containers share the same OS
+	
+	- slow to start																- container can start quickly
+	
+	- resource intensive because each VM takes physical machine's resources		- more lightweight than virtual machines bcs they share the same
+	  like cpu, memory and disk space											  operating system
+	
+	------------------------------------------
+	> docker archeticture (client - server)
+	
+	client	-> CLI you interact with
+	
+	server	-> docker engine (docker daemon in the background)
+	
+	- you run a CLI, and it communicates with docker daemon to do processes like start or stop a container etc
+
+    ------------------------------------------                                        	
+	> how docker packages an application
+		- create a Dockerfile inside an application
+		- Dockerfile contains instructions for docker to package the application and all its files into a docker image
+		- A docker image contains everything that an application needs to run
+					>>>> cut-down OS
+					>>>> runtime-environment
+					>>>> application files
+					>>>> third party libraries
+					>>>> environment variables
+					>>>> we start a container using that image
+
+    ------------------------------------------				
+	> how to go inside an a shell using docker?
+		- docker run -it image_name sh
+		- you will have access to the features of that image provider
+		- for example, for ubuntu image, you will be able to use ubuntu OS features throw that image
+												
+    ------------------------------------------
+	> how to connect to a running container
+		- make sure the target container is running
+		- use command 	docker exec <container_id> or <container_name> bash or ls
+	
+    ------------------------------------------
+	> how to run database using docker
+	
+    ------------------------------------------
+	> how to run nginx image and display it on browser:
+		- use command docker run -p 8080:80 nginx, which pulls nginx image and maps port 8080 to the container's port 80
+		- docker sends a request to the container
+		- the container returns a response and docker displays it on the browser
+		- now nginx server has started and is accessible in the browser with port 8080
+		
+   ------------------------------------------		
+	> mounting local directories to docker container using volumes
+	  - why do we need volumes?
+	  	>> docker containers are immutable by nature. Meaning that once a container restarts, all data stored in that container will be erased
+	  	>> docker solves this problem with volume mounts, which is a mechanism for persisting data in a docker container
+	  	>> we can mount local directories using docker -v
+	  	>> the -v parameter is used to bind your local directory to the container
+	  	
+   ------------------------------------------
+   	> how to manage volumes? below are commands used to manage volumes
+   		- create a docker volume		docker volume create volume_name
+   		- list volumes				docker volume ls
+   		- inspect a volume			docker volume inspect volume_name
+   		- remove a volume			docker volume rm volume_name
+   		- run a container with a volme		docker run --name my_container -v ${PWD}:/my-vol <image>:tag		  	
+	
+	
+	

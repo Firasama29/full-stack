@@ -1,0 +1,25 @@
+linux commands
+
+Below are a list of linux commands collected from different sources (book, articles, youtube)
+
+     1. man	-> system manual pager. Displays manual for any command
+     
+     2. tldr	-> command to get a quick overview of a command
+     
+     3. ls	-> command to list directory contents. You can specify the folder (for example: ls /bin)
+     		3.1. ls -a	-> displays hidden files (hidden files start with a dot ( . ))	
+     		3.2. ls -al	-> displays more information like file permissions, size in bytes, modified datetime, file name		
+	
+     4. cd	-> command to move into a specified directory
+     
+     5. pwd	-> command to show the current folder path
+     
+     6. mkdir	-> command to create folders 
+     		6.1. multiple folders can be created (mkdir folder1 folder2)
+     		6.2. nested folders can be created (mkdir -p folder1/folder2)
+     
+     7. touch	-> to create an empty file
+     		7.1. multiple files can be created (touch file1 file2
+     		
+     8. rmdir	-> removes empty directory(s)
+     		8.1. to remove files and folders, we can use rm command 	-> rm -rf file folder		
