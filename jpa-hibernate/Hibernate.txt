@@ -8,37 +8,62 @@ sources
 	topics:
 		- steps to create a hibernate project
 		- steps to use Hibernate API
+		- annotations
 		
 -------------------------------------------------------------------------------------------------------
-- steps to create a Hibernate project:
-	> create a maven project
-	> add hibernate's dependency (jar) or download jar file from Hibernate's website
-	> create a hibernate xml configuration file (see videos)
-	
-	
-- steps to use Hibernate API
-	we can perform operations on an entity to save, read, update or delete using Hibernate API. Steps are:
-		1. Create an entity class and annotated with javax.persistence's @Entity
-		2. in main method, instantiate the object
-		3. Create a SessionFactory
-			|----------------------------------------------------------------------------------------|
-			| SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory(); |
-			|----------------------------------------------------------------------------------------|
-			- it's a class that is used to create Hibernate sessions
-			- one SessionFactory per application should be used
-		4. Create a session from SessionFactory
-			|-------------------------------------------------|
-			| Session session = sessionFactory.openSession(); |
-			|-------------------------------------------------|
-		5. 	Create a transaction
-			|--------------------------|
-			| session.beginTransaction |
-			|--------------------------|
-	TO SAVE AN OBJECT:
-			|----------------------|
-			| session.save(object) |
-			|----------------------|
-	TO FETCH AN OBJECT FROM DB
-			|--------------------------|
-			| session.beginTransaction |
-			|--------------------------|	
+	- steps to create a Hibernate project:
+		> create a maven project
+		> add hibernate's dependency (jar) or download jar file from Hibernate's website
+		> create a hibernate xml configuration file (see videos)
+		
+		
+	- steps to use Hibernate API
+		we can perform operations on an entity to save, read, update or delete using Hibernate API. Steps are:
+			1. Create an entity class and annotated with javax.persistence's @Entity
+			2. in main method, instantiate the object
+			3. Create a SessionFactory
+				|----------------------------------------------------------------------------------------|
+				| SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory(); |
+				|----------------------------------------------------------------------------------------|
+				- it's a class that is used to create Hibernate sessions
+				- one SessionFactory per application should be used
+			4. Create a session from SessionFactory
+				|-------------------------------------------------|
+				| Session session = sessionFactory.openSession(); |
+				|-------------------------------------------------|
+			5. 	Create a transaction
+				|--------------------------|
+				| session.beginTransaction |
+				|--------------------------|
+		TO SAVE AN OBJECT:
+				|----------------------|
+				| session.save(object) |
+				|----------------------|
+		TO FETCH AN OBJECT FROM DB
+			-- for natural keys (member variable that is used as primary key and for other purposes)
+				|---------------------------------------|
+				| session.get(Object.class, primaryKey) |
+				|---------------------------------------|
+				
+			-- for surrogate keys (generated with @GeneratedValue. You have to check the database for the value)
+				|---------------------------------------|
+				| session.get(Object.class, primaryKey) |
+				|---------------------------------------|
+				
+			a typical example of hibernate session:
+			------------------------------------------------------------------------------------------------------------------------------------------
+			Session session = sessionFactory.openSession();
+			Transaction tx;
+			try {
+				session.beginTransaction();
+				//....
+				tx.commit();
+			} catch(Exception e) {
+				if (tx != null) tx.rollback()
+			}
+			finally {
+				session.close();
+			}
+			
+
+	> annotations
