@@ -1,6 +1,0 @@
-com/practice/service/SessionService.class
-com/practice/entity/Users.class
-com/practice/service/EntityManagerService.class
-com/practice/App.class
-com/practice/service/containermanaged/ExtendedScopePersistenceContext.class
-com/practice/service/containermanaged/ContainerManagedEntityManagerService.class
