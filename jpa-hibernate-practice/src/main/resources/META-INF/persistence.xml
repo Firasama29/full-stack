@@ -8,13 +8,18 @@
         <class>com.practice.entity.Users</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
+            <!-- HIBERNATE DIALECT -->
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL82Dialect"/>
             <property name="hibernate.hbm2ddl.auto" value="update"/>
             <property name="hibernate.show_sql" value="true"/>
+            <!-- DATABASE CONFIGURATION -->
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
             <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/hibernateDB"/>
             <property name="javax.persistence.jdbc.user" value="postgres"/>
             <property name="javax.persistence.jdbc.password" value="password"/>
+
+            <!-- ENABLE SECOND-LEVEL CACHE -->
+            <property name="hibernate.cache.region.factory_class" value="org.hibernate.cache.ehcache.EhCacheRegionFactory"/>
         </properties>
     </persistence-unit>
 </persistence>
