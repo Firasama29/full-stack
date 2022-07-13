@@ -1,0 +1,7 @@
+	
+	Factory design pattern
+	(
+		sources:
+		https://medium.com/geekculture/factory-design-pattern-in-java-and-in-spring-ff0602ca3716
+		https://www.tutorialspoint.com/design_pattern/factory_pattern.htm
+	)

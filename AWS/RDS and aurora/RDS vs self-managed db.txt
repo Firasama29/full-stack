@@ -1,0 +1,19 @@
+RDS for Postgres vs Self-managed relational databases
+
+- Relational databases are popular choice but require alot of design, infrastructure setting up and management, backup, restore, etc
+
+- RDS provides support for  relational databases: MYSQL, SQL server, POSTGRESQL, MariaDB, Oracle
+
+	- Advantages of RDS:
+		helps you focus on your core business application development including:
+		- schema design
+		- query construction
+		- query optimizaation
+	
+	while the AWS handles the rest of activities such as
+		- backup and recovery
+		- isolation and security
+		- push button scaling
+		- automated patching and upgrades
+		- advanced monitoring
+		- routine monitoring

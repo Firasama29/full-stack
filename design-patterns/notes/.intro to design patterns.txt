@@ -1,0 +1,36 @@
+	
+	Design Pattern intro
+	(sources:
+		https://arunprashanth6.medium.com/a-complete-guide-on-design-pattern-in-java-2b80fbf088ce
+	
+	CREATIONAL DESIGN PATTERNS
+		|
+		|________Singleton
+		|________Prototype
+		|________Factory
+		|________Abstract Factory
+		|________Builder
+		
+		
+	STRUCTURAL DESIGN PATTERNS
+		|
+		|________Proxy
+		|________Facade
+		|________Decorator
+		|________Adapter
+		|________Bridge
+		|________Composite
+		|________Flyweight
+		
+	BEHAVIORAL DESIGN PATTERNS
+		|
+		|________Chain of responsibilit
+		|________Command
+		|________Interpreter
+		|________Iterator
+		|________Mediator
+		|________Observer
+		|________State
+		|________Strategy
+		|________Visitor
+		|________Template
