@@ -1,0 +1,75 @@
+POM components
+--------------
+
+PARENT POM
+	<project>
+		<modelVersion>4.0.0</modelVersion>
+		
+		<parent>
+			<groupId></groupId>
+			<artifactId></artifactId>
+			<version></version>
+		</parent>
+		
+		<groupId></groupId>
+		<artifactId></artifactId>
+		<version></version>
+		<packaging>pom</packaging> for parent module	OR 		<packaging>jar or war</packaging> for child modules
+		
+		<properties>
+			<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+			<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+			<java.version>1.8</java.version>
+			<~.version>include each version of a dependency in this section</~.version>
+		</properties>
+		
+		<modules>
+			<module>also called subprojects, they are projects within this project</module>
+			<module>to refer to a module, use its artifactId</module>
+		</modules>
+		
+		<!-- used in multi-module project in the parent pom. We can put all information about dependencies in the parent pom -->
+		<!-- and have simpler references to the artifacts in the child POMS -->
+		<dependencyManagement>
+			<dependency>
+				<groupId>com.example</groupId>
+				<artifactId>example-dependency</artifactId>
+				<version>1.0.0</version>
+			</dependency>
+		</dependencyManagement>
+		
+		<dependencies>
+			<dependency>
+				<groupId>com.example</groupId>
+				<artifactId>example-dependency<artifactId>
+				<version>1.0.0</version>
+			</dependency>
+		</dependencies>
+		
+		<build>
+			<plugins>
+				<plugin>											--------------- plugin
+					<groupId></groupId>
+					<artifactId></artifactId>
+					<version></version>
+					<executions>		--- specification of the goal(s) to execute during build lifecycle. Each can hv mutliple configuration
+						<execution>
+							<goals>									-------------- goal of the plugin
+								<goal></goal>
+							</goals>
+							<configuration>		------- EXAMPLE
+								<driver>org.postgresql.Driver</driver>
+								<username></username>
+								<password></password>
+								<verbose>true or false</verbose>
+								<dropFirst>true or false</dropFirst>
+								<logging>debug</logging>
+								<changelogFile>location of changelog in project</changelogFile>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+			</plugins>
+			
+		</build>
+	</project>

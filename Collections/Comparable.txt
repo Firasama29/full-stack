@@ -1,0 +1,17 @@
+Comparable interface
+
+	how to use comparable interface to compare between 2 objects:
+	
+		public class Example implements Comparable<Example> {
+		
+			@Override
+			public int compareTo(Example o) {
+				return this.id - o.getId();
+			
+			}
+		}
+		
+		
+		- if the id of the argument object is higher than the id of the object, result will return a negative value
+		- if the id of the argument object is less than the id of the object, result will return a positive value
+		- if the ids of both objects are equal, result will be zero

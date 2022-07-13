@@ -1,0 +1,24 @@
+Java 8
+
+New features:
+	- Functional interface
+	- Lambda expression
+	- Method reference
+	- stream API
+	- Optional
+	- Date API
+	- Default methods in interface
+	- Predicate
+	- Function
+	- Consumer
+	- Supplier
+	- BiConsumer
+	
+	
+	- Predicate
+		# A predefined Functional Interface (which has only one abstract method)
+		
+		# Predicate's abstract method is	boolean test(T t);
+					
+		# method returns true if the argument matches the predicate, else it returns false
+	

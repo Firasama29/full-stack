@@ -1,0 +1,283 @@
+Maven plugins
+-------------
+	(source - maven repository: https://maven.apache.org/plugins/index.html)
+	
+all work is done by plugins
+	- a plugin must contain goals you want to run as part of the build
+	- a plugin may have more than one goal
+	- a plugin can contain the phase to bind a goal to
+	- adding plugsin by themselves is not enough information
+
+	Two types of plugins:
+		1> build plugins:		executed during the build and should be configured inside <build/> element in pom file
+		2> reporting plugins: 	executed during the site generation, should be configured in <reporting/> element
+		
+
+Core plugins:
+	
+	plugin
+   -----------
+	clean		: 
+		- clean up after the build to remove files generated in project directory at build-time
+		- this plugin is included in the super pom, so it doesn't need to be explicitly include it in a pom
+		- has one phase called 'clean' which is bounded to 'clean' goal
+	(
+		https://maven.apache.org/plugins/maven-clean-plugin/
+		https://www.baeldung.com/maven-clean-plugin
+	)
+	
+	compiler		: - compiles java sources
+						(
+							https://maven.apache.org/plugins/maven-compiler-plugin/
+							https://www.baeldung.com/maven-compiler-plugin
+						)
+					  - has two goals that are bound to phases in the build lifecycle
+							> compile goal		- 	compile main source files
+							> testCompile goal	-	compile test source files
+						
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-compiler-plugin</artifactId>
+							<version>3.3</version>
+							<configuration>
+								<generatedSourcesDirectory>${project.build.directory}/generated-sources</generatedSourcesDirectory>
+							</configuration>
+						</plugin>
+	
+	install			: - used during 'install' phase to add artifact(s) to local maven repository
+					  - uses groupId, artifactId and version to determine proper location for artifact in local repository
+					  - already included in super POM, so it doesn't need to be included in a POM
+					  - it has goals such as install, install-file and help
+					  - https://maven.apache.org/plugins/maven-install-plugin/
+					  - https://www.baeldung.com/maven-install-plugin
+		
+	surefire		: - https://maven.apache.org/surefire/maven-surefire-plugin/
+					  - used during 'test' phase of build life-cycle
+					  - generates reports in 2 formates: plain text files (*.txt) and XML files (*.xml)
+					  - runs JUnit 	   unit    tests in isolated classloader
+					  - this plugin has a 'test' goal bound to the test phase
+					  
+					  
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-surefire-plugin</artifactId>
+							<version>2.19.1</version>
+							<dependencies>
+								<dependency>
+									<groupId>org.junit.platform</groupId>
+									<artifactId>junit-platform-surefire-provider</artifactId>
+									<version>1.1.0</version>
+								</dependency>
+							</dependencies>
+							<configuration>
+								<excludes>
+									<exclude>**/*TestRunner*.java</exclude>
+								</excludes>
+							</configuration>
+						</plugin>
+	
+	failsafe		: - runs JUnit integration tests in isolated classloader
+					  - https://maven.apache.org/surefire/maven-failsafe-plugin/	
+	
+	verifier		: https://maven.apache.org/plugins/maven-verifier-plugin/
+	
+	deploy			: - used during deploy phase to push artifacts to remote repository for sharing with others
+					  - main goal is 'deploy' which is bound to 'deploy' phase
+					  - https://maven.apache.org/plugins/maven-deploy-plugin/
+					  - https://www.baeldung.com/maven-deploy-plugin
+					  
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-deploy-plugin</artifactId>
+							<version>2.8.2</version>
+							<configuration>
+								.. or <skip>true</skip>
+							</configuration>
+						</plugin>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-deploy-plugin</artifactId>
+							<version>2.8.2</version>
+							<configuration>
+								<skip>true</skip>
+							</configuration>
+						</plugin>
+	
+	resources		: - copies project resources (main resources and test resources) to output directory (JAR file)
+					  - https://maven.apache.org/plugins/maven-resources-plugin/
+					  
+	
+Packaging plugins:
+	plugin
+   ----------- 
+	ear				: generates Java EE Enterprise Archive (EAR) (https://maven.apache.org/plugins/maven-ear-plugin/)
+	
+	war				: - collects all artifact dependencies, classes and files of web application and packages them into a web application archive (war)
+					: - https://maven.apache.org/plugins/maven-war-plugin/
+	
+	jar				: builds a jar file from the current project (https://maven.apache.org/plugins/maven-jar-plugin/)
+	
+	rar				: builds a rar file from the current project (https://maven.apache.org/plugins/maven-rar-plugin/)
+	
+	source			: builds a source jar from the current project (https://maven.apache.org/plugins/maven-source-plugin/)
+	
+	ejb				: https://maven.apache.org/plugins/maven-ejb-plugin/
+	
+	
+Reporting plugins:
+	plugin
+   -----------
+	changelog
+	changes
+	surefire-report	: - generates a report based on unit test results (https://maven.apache.org/surefire/maven-surefire-report-plugin/)
+					  - show only failed tests (https://maven.apache.org/surefire/maven-surefire-report-plugin/examples/show-failures.html)	
+
+					  
+Tools: available in maven by default
+
+	plugin
+   -----------
+	archetype		: generates skeleton project structure from an archetype (https://maven.apache.org/archetype/maven-archetype-plugin/)
+	
+	artifact		: manages artifacts (https://maven.apache.org/plugins/maven-artifact-plugin/)
+	
+	dependency		: dependency manipulation (https://maven.apache.org/plugins/maven-dependency-plugin/)
+	
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-dependency-plugin</artifactId>
+							<executions>
+								<execution>
+									<goals>
+										<goal>unpack</goal>
+									</goals>
+									<configuration>
+										<artifactItems>
+											<artifactItem>
+												<groupId>com.neo.core</groupId>
+												<artifactId>neo-core</artifactId>
+												<version>0.0.1-SNAPSHOT</version>
+												<includes>**/messages/*.properties</includes>
+											</artifactItem>
+										</artifactItems>
+										<outputDirectory>target/classes</outputDirectory>
+									</configuration>
+								</execution>
+							</executions>
+						</plugin>
+	
+	assembly		: https://maven.apache.org/plugins/maven-assembly-plugin/
+	
+	
+Others:
+		
+	plugin
+   -----------
+   liquibase		: runs liquibase commands like create, update and rollback
+						
+						<plugin>
+							<groupId>org.liquibase</groupId>
+							<artifactId>liquibase-maven-plugin</artifactId>
+							<version>${liquibase-maven-plugin.version}</version>
+							<configuration>
+								<skip>true</skip>
+							</configuration>
+						</plugin>
+						
+						OR
+						
+						<plugin>
+							<groupId>org.liquibase</groupId>
+							<artifactId>liquibase-maven-plugin</artifactId>
+							<version>${liquibase-maven-plugin.version}</version>
+							<configuration>
+								<driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</driver>
+								<!--suppress UnresolvedMavenProperty -->
+								<url>jdbc:sqlserver://${db_host};database=${db_name}</url>
+								<!--suppress UnresolvedMavenProperty -->
+								<username>${db_username}</username>
+								<!--suppress UnresolvedMavenProperty -->
+								<password>${db_password}</password>
+								<verbose>true</verbose>
+								<dropFirst>false</dropFirst>
+								<logging>debug</logging>
+								<promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
+								<changeLogFile>database/changelog-master.xml</changeLogFile>
+							</configuration>
+						</plugin>
+						
+	
+	openapi			: used to generate classes
+	
+					<plugin>
+						<groupId>com.neo.plugin.openapi</groupId>
+						<artifactId>neo-swagger-maven-plugin</artifactId>
+						<version>${neo-swagger-maven-plugin.version}</version>
+						<executions>
+							<execution>
+								<phase>generate-sources</phase>
+								<goals>
+									<goal>generateCode</goal>
+								</goals>
+								<configuration>
+									<schemas>
+										<schema>
+											<location>
+												${project.basedir}/src/main/resources/openapi/exampleFile.yaml
+											</location>
+											<serviceName>something</serviceName>
+											<packageName>com.package.example</packageName>
+										</schema>
+									</schemas>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					
+	
+	jacoco
+					<plugin>
+						<groupId>org.jacoco</groupId>
+						<artifactId>jacoco-maven-plugin</artifactId>
+						<version>${jacoco.version}</version>
+						<executions>
+							<execution>
+								<goals>
+									<goal>prepare-agent</goal>
+								</goals>
+								<configuration>
+									<destFile>${sonar.jacoco.reportPath}</destFile>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					
+	pitest
+
+					<plugin>
+						<groupId>org.pitest</groupId>
+						<artifactId>pitest-maven</artifactId>
+						<version>${pitest-plugin.version}</version>
+						<dependencies>
+							<dependency>
+								<groupId>org.pitest</groupId>
+								<artifactId>pitest-junit5-plugin</artifactId>
+								<version>0.8</version>
+							</dependency>
+						</dependencies>
+						<configuration>
+							<withHistory>true</withHistory>
+							<skip>true</skip>
+						</configuration>
+						<executions>
+							<execution>
+								<id>coverAll</id>
+								<phase>test</phase>
+								<goals>
+									<goal>mutationCoverage</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					
+					

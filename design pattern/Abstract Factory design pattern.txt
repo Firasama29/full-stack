@@ -1,0 +1,6 @@
+
+	Abstract Factory design pattern
+	(
+		source:
+		tutorialspoint.com/design_pattern/abstract_factory_pattern.htm
+	)

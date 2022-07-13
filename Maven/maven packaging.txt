@@ -1,0 +1,13 @@
+maven packaging types
+	(https://www.baeldung.com/maven-packaging-types)
+	
+	Types of packages:
+	
+	jar
+	war
+	ear
+	pom
+	maven-plugin
+	maven-archetype
+	ejb
+	rar

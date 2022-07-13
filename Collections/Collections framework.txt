@@ -1,0 +1,56 @@
+Collections framework
+	
+	Collection Interface
+		>	List interface
+			>>	ArrayList class
+			>> LinkedList class
+			
+		> Set interface
+			>> HashSet class
+			>> LinkedHashSet class
+			>> TreeSet class
+			
+		> Queue	
+
+	Map Interface
+		>> HashTable class	:
+				>>>> uses hashing mechanism
+				>>>> synchronized				
+				>>>> doesn't allow nulls
+				>>>> doesn't maintain insertion order
+				
+		>> HashMap class	:
+				>>>> a hashtable implementation of a map interface
+				>>>> uses hashing mechanism
+				>>>> unsynchronized: it multiple threads access it concurrently and at least one thread modifies it structurally, 
+					 it must be synchronized externally
+				>>>> allows one null key and multiple null values
+				>>>> doesn't maintain insertion order
+				>>>> provides constant time performance O(1) for get, contains and remove operations
+				
+		>> LinkedHashMap class
+				>>>> hashtable and linked list implementation off map interface
+				>>>> uses hashing mechanism
+				>>>> unsynchronized: it multiple threads access it concurrently and at least one thread modifies it structurally, 
+					 it must be synchronized externally
+				>>>> maintains a doubly-linked list running through all its entries
+				>>>> this linkedList defines the ordering of entries
+				>>>> allows one null key and multiple null values
+				>>>> maintains insertion order
+				>>>> can be configured to return access order(order in which elements were accessed, from least-recently to most-recently)
+				>>>> provides constant time performance O(1) for get, contains and remove operations
+				
+		>> TreeMap
+		
+		
+		
+	NOTE: Initial Capacity and Load Factors are two parameters of HashSet, Hashtable and HashMap
+		
+		> Initial capacity
+			- is the number of buckets of a hashtable/hashset/hashmap
+			- initial capacity is capacity at the time hashtable/hashset/hashmap are created
+			- initial capacity for hashset is 16 and for hashtable is 11
+			
+		> load factor
+			- is a measure of how full a hashtable/hashset/hashmap can get before its capacity is automatically increased
+			- default capacity for hashtable/hashset/hashmap is 0.75

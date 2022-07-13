@@ -1,0 +1,77 @@
+Builder design pattern
+(
+	source:
+	https://medium.com/@fahim.foysal.emon/builder-pattern-in-java-b15a5352f63c
+	https://www.baeldung.com/creational-design-patterns#builder
+)
+
+	- Builder pattern uses another object (Builder object) to instantiate our objects
+	- Builder pattern
+
+When to use?	
+	- It's a creational design pattern, so it should be used when the number of parameters required in a constructor appear unmanageable.
+				
+
+What can it do?
+	- improves readability
+	- reduces errors by adding parameters explicitly and making object available once fully constructed.
+	
+What problem does it solve?
+	- solves problems related to object creation
+	- constructors are used to create objects and can take parameters required to create objects
+	- problem with constructors is when an object can be created with so many parameters (mandatory & optional), we will require
+		many constructors
+	- too many consturctors to maintain
+	
+Guidelines (example done in eclipse):
+		1. Make a nested static Builder class inside the class whose object will be built by Builder
+		2. Builder class will have the same set of fields as the original class
+		3. Builder class will expose methods
+		4. Builder.build() method will copy all builder field values into actual class and return object of Item class
+		5. Item class (class for which we create Builder) should have private constructor to create its object from build() method
+			and prevent outsiders to access the constructor
+			
+
+Advantages:
+	- more maintainable if the number of fields required to create an object exceed 4 or 5
+	- less error expected as developers will know what fields to pass thanks to explicit method calls
+	- more robust as only fully constructed object will be available to the client.
+
+Disadvantages:
+	-verbose and code duplication as Builder needs to copy all fields from Original or Item class.
+
+
+	
+	public class Example {
+	
+		private Long id;
+		private String name;
+	
+		constructors (private so only builder class can access it) and getters (no setters)
+		
+		public static class ExampleBuilder {
+			private Long id;
+			private String name;
+			
+			public ExampleBuilder(Long id, String name) {
+				this.id = id;
+				this.name = name;
+			}
+			
+			public ExampleBuilder id(Long id) {
+				this.id = id;
+				return this;
+			}
+			
+			public ExampleBuilder name(String name) {
+				this.name = name;
+				return this;
+			}
+			
+			public Example build() {
+				return new Example(this);
+				//this method calls the constructor of the outer class and passes itself as the argument
+			}
+		}
+	
+	}

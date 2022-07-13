@@ -1,0 +1,117 @@
+
+How Liquibase works? 2 mechanisms:
+1. Schema changes (changelogs, changesets, change types)
+
+2. Tracking tables (to record database changes)
+
+
+Change types in liquibase are the same as schema changes in the table (create table, add index, drop column, etc.).
+
+Change types can be grouped into changesets
+
+Best practice is to have one change type in a changeset
+
+Changelog contains one or more changesets
+Changelogs can contain other changelogs
+
+Changelogs are textfiles that contain schema changes
+
+Tracking tables are used to track, version, and deploy database schema changes.
+If your database does not contain a tracking table, Liquibase will create one for you.
+
+FORMAT IN XML:
+>>>>changelog containing one changeset
+		<databaseChangeLog
+				xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+				xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+				http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+			<changeSet id="something" author="author">
+				<comment>add comment here</comment>
+				<sqlFile path="sql_rollout_file_path_here.sql"/>
+				<rollback>
+					<sqlFile path="sql__rollback_file_path_here.sql"/>
+				</rollback>
+			</changeSet>
+		</databaseChangeLog>
+
+>>>>changelog containing multiple changesets
+
+		<?xml version="1.0" encoding="utf-8" ?>
+		<databaseChangeLog
+				xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+				xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+				http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+			
+			<include file="changeset_file1_path"/>
+			<include file="changeset_file2_path"/>
+			<include file="changeset_file3_path"/>
+			<include file="changeset_file4_path"/>
+
+			<changeSet id="something2" author="author">
+				<tagDatabase tag="something2"/>
+			</changeSet>
+
+		</databaseChangeLog>
+
+>>>>changelog master
+
+		<?xml version="1.0" encoding="utf-8" ?>
+		<databaseChangeLog
+				xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+				xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+				http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+			<include file="changelog2_file_path.xml"/>
+			<include file="changelog2_file_path"/>
+		</databaseChangeLog>
+
+COMMANDS
+
+update: applies to all unrun changes
+
+rollback - reverts (rolls back) changes you have made to your database.
+
+snapshot - used when you want to quickly compare changes in your database or keep a record of your current database state. 
+
+dbDoc - generates database change documentation.
+
+Liquibase installation
+
+Either manually or using maven plugin in POM.xml
+
+	Example of liquibase in maven POM.xml:
+	
+		<plugin>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-maven-plugin</artifactId>
+                <version>${liquibase-maven-plugin.version}</version>
+                <configuration>
+                    <propertyFile>liquibase.properties</propertyFile>
+                </configuration>
+        </plugin>
+
+This creates a liquibase.properties file in your project. This file stores properties that are used frequently and do not change often
+such as database connection information.
+
+Why use this file?		saves you time and potential typing errors by removing the need to enter these properties as command line arguments
+
+Common properties in liquibase.properties:
+	
+	driver
+	url (database url)
+	username
+	password
+	verbose=true
+	dropFirst=false
+	logging=debug
+	promptOnNonLocalDatabase=false
+	changeLogFile=database/changelog-file-path.xml
+
+
+
+

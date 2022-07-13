@@ -1,0 +1,171 @@
+Maven
+	(
+		https://maven.apache.org/plugins/index.html
+		https://www.baeldung.com/maven-artifact
+	)
+	
+	--------------------------------------------------------------------------
+	keywords:
+	=========
+		archetype
+		artifact
+		dependencyManagement vs dependency
+		transitive dependencies
+		dependency scopes
+		properties
+		using mvn install to install your project to local maven repo
+		multi-module project
+		parent project
+		modules
+		maven lifecycles
+		maven phases
+		maven goals
+		maven plugins
+		settings.xml	(https://maven.apache.org/settings.html	, 	https://www.baeldung.com/maven-settings-xml)
+		Maven Coordinates
+		Maven artifact release vs artifact snapshot
+	
+	--------------------------------------------------------------------------
+
+	- Maven is a project management tool
+	- Maven gets all its knowledge from maven repository online
+	- Maven repository has 2 types of information
+		> archetype information (includes types of projects, structure, any information about creating a project)
+		
+		> dependency information (includes list of all jar files that can be used in a project)
+		
+	- Archetype:	refers to type of project that we can choose. 
+	
+	- GroupId	:	similar to package. Used to group all related archetypes or projects
+	
+	- ArtifactId: 	output of the project (jar, war, ear, etc)
+--------------------------------------------------------------------------------------------------------------------	
+	- Local repository:
+		> is a local cache were all artifacts needed for the build are stored.
+		> It's located in user's home directory (~/.m2/repository)
+--------------------------------------------------------------------------------------------------------------------		
+		
+	- Maven build lifecycle
+		> default lifecycle: handles the deployment of a project. Includes the following phases:
+			> validate			: validates if the project is correct and all information is available
+			> compile			: compiles source code of the project
+			> test				: validates and compiles project's files then run tests
+			> package			: packages the compiled source code into a JAR or WAR file
+			> verify			:	
+			> install			: installs the project into the local repository where it can be used for other projects locally
+			> deploy			: copies the final packages source code to remote repository for sharing with other developers
+			
+		> clean lifecycle: 	handles the cleaning of the project. Includes the following phases:
+			> pre-clean:		: executes processes needed prior to the project cleaning
+			> clean				: cleans all generated files from the previous build
+			> post-clean		: executes processes needed to finalize the cleaning
+			
+		> site lifecycle:	handles creating the project web-site. Includes the following phases:
+			> pre-site			: executes processes need prior to the site generation
+			> site				: generates the project's site documentation
+			> post-site			: executes processes needed to finalize the site generation and prepares the site deployment
+			> site-deploy		: deploys site documentation to the specified web server
+		
+--------------------------------------------------------------------------------------------------------------------	
+	
+	- Dependency scope:	used to determine when a dependency is includes in the classpath
+		
+		> compile:
+			* default scope. Used when none is specified.
+			* compile dependencies available in all classpaths of a project
+			* propagated to dependent projects
+		> provided
+			* similar to compile scope. Indicates that JDK or container will provide the dependency at runtime
+		> runtime
+			* indicates dependency is required for runtime, not compilation
+		> test
+			* only required for test compilation and execution
+		> system
+			* similar to provide but we have to provide the JAR	
+		> import
+			* used only on dependency of type 'pom' in <dependencyManagement/>
+			* indicates that this dependency will be replaces by list of dependencies inside <dependencyManagement/> section
+	
+	
+--------------------------------------------
+What is an artifact?
+It's a file that contains compiled code and resources that are used to compile them. Example: .jar, .war, .ear files
+
+--------------------------------------------
+How to create modules inside a parent project?
+- use mvn archetype:generate
+
+--------------------------------------------
+Characteristics of parent and sub projects:
+	- Parent project's pom has pom package				<package>pom</package>
+	- Parent project's pom has modules section
+				<modules>
+					<module>module1</module>
+					<module>module2</module>
+				</modules>
+	
+	- sub modules have parent section:
+				<parent>
+					<groupId>com.practice</groupId>
+					<artifactId>parent-project</artifactId>
+					<version>0.0</version>
+				</parent>
+				
+				
+--------------------------------------------
+Settings.xml: 
+
+	- a file that contains elements used to define values that configure maven configuration like remote repositories, server, etc.
+	- two locations where it may be there:
+		> The maven install:	${maven.home}/config/settings.xml
+		> The user's install:	${user.home}/.m2/settings.xml
+	- some elements in settings.xml include:
+		* 	server	:	contains the build server details like server id, username and password
+				
+				<server>
+					<username>user</username>
+					<password>pass</password>
+					<id>serverId</id>
+				</server>
+		
+		*	profile	:	consists of the following elements: repositories, pluginRepositories, activation and properties
+				<profiles>
+					<profile>
+						<id>artifactory</id>
+						
+				**	repositories	:	collection of artifacts from remote repository that maven uses to populate local repo
+						<repositories>	
+							<repository>
+								<id></id>
+								<releases>
+									<enabled>true/false</enabled>
+								</releases>
+								<snapshots>
+									<enabled>true/false</enabled>
+								</snapshots>
+								<url></url>
+								<layout>default</layout>
+							</repository>
+						</repositories>	
+						
+				**	pluginRepository	: a collection of maven plugins from remote repository
+						<pluginRepositories>
+							<pluginRepository>
+								<id></id>
+								<releases>
+									<enabled>true</enabled>
+								</releases>
+								<snapshots>
+									<enabled>true</enabled>
+								</snapshots>
+								<url></url>
+							</pluginRepository>
+						</pluginRepositories>	
+					</profile>
+					
+				*	activeProfile	:	The final piece of the settings.xml puzzle is the activeProfiles element. This contains a set of activeProfile elements, which each have a value of a profile id. Any profile id defined as an activeProfile will be active, regardless of any environment settings. If no matching profile is found nothing will happen. For example, if env-test is an activeProfile, a profile in a pom.xml (or profile.xml with a corresponding id will be active. If no such profile is found then execution will continue as normal.	
+					<activeProfiles>
+						<activeProfile>artifactory</activeProfile>
+					</activeProfiles>
+				</profiles>	
+			
