@@ -1,0 +1,88 @@
+Collectors.to...
+	sources
+	(
+		https://www.baeldung.com/java-8-collectors
+		https://www.baeldung.com/java-collectors-tomap
+		https://www.baeldung.com/java-groupingby-collector
+		https://stackabuse.com/guide-to-java-8-collectors-collectingandthen/
+		
+	
+	)
+	
+	topics
+		Stream.collect()
+		toList
+		toSet
+		toMap
+		toCollection
+		collectingAndThen
+		joining
+		counting
+		maxBy and minBy
+		groupingBy(accepts a function for a map)
+		Custom Collectors
+	--------------------------------------------------------------
+
+	> Stream.collect() is a Stream terminal operation used to perform mutable fold operations on elements of a Stream instance
+
+	
+	> Collectors.toList()
+		- used to collect elements of a Stream into a List
+		- we cannot assume any particular List implementation. To have more control, we can use .toCollection() method
+	
+	
+	> Collectors.toSet()
+		- used to collect elements of a Stream into a Set
+		- we cannot assume any particular Set implementation. To have more control, we can use .toCollection() method
+		- a Set doesn't allow duplicates. If a collection contains elements equal to each other, they will appear once in the resulting Set
+
+		
+	> Collectors.toCollection()
+		- we can use it to use a custom implementation of a List or Set
+			example:
+				>> stream().collect(toCollection(ArrayList::new))
+				>> stream().collect(toCollection(LinkedList::new))
+				>> stream().collect(toCollection(HashSet::new))
+				>> stream().collect(toCollection(TreeSet::new))
+		- can only be used on mutable collections
+		- to operate on immutable collections, we can write a custom Collector implementation or use collectingAndThen()
+
+		
+	> Collectors.toMap()
+		- used to collect elements of a Stream into a Map
+		- because a Map has a key and value, we need to provide 2 functions: keyMapper and valueMapper
+			example: Map<String, String> stringMap = aList.stream().collect(toMap(Function.identity(), String::new));
+			
+		- Function.identity is a shortcut for defining a function that accepts and returns the same value
+		- in case of duplicate elements, a Map will throw an illegalStateException
+		- to solve duplicate elements issue, we need to add another signature
+			example: Map<String, String> stringMap = aList.stream()
+											.collect(toMap(Function.identity(), String::new, (a, b) -> a));
+		- Different map implementations:
+			hashMap example:
+			  Map<String, Integer> hashMap = aList.stream().collect(Collectors.toMap(String::new, String::length, (a, b) -> a, HashMap::new));
+			treeMap example (sorted map which preserves natural order):
+			  Map<String, Integer> treeMap = aList.stream().collect(Collectors.toMap(String::new, String::length, (a, b) -> a, TreeMap::new));
+			linkedHashMap example:
+			  Map<String, Integer> linkedHashMap = aList.stream().collect(Collectors.toMap(String::new, String::length, (a, b) -> a, LinkedHashMap::new));
+			  
+			  
+	> Collectors.collectingAndThen(Collector d, Function f)
+		- accepts a Collector and a finisher function
+		- the finisher function is applied to the result returned from the collector
+		- used to perform an additional finishing operation after collecting ends
+			
+			example: stream().collect(collectingAndThen(toList, Collections.unmodifiableList));
+			
+	
+	> Collectors.joining()
+		- used to convert a elements to a string and concatenate them
+		- we can define custom separators, prefixes and suffixes like joining(","), joining(" "), joining("PRE-"), joining("-POST")
+		
+	
+	> Collectors.counting()
+		- used to count number of elements in a collection
+		
+	
+	> Custom Collector	
+	
