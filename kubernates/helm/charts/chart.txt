@@ -1,0 +1,51 @@
+	
+	helm chart (
+				https://helm.sh/docs/topics/charts/#the-chartyaml-file
+				
+				[2] chart types: https://helm.sh/docs/topics/charts/#chart-types
+				
+				[3] chart dependencies: 
+				
+				[4] templates and values: (https://helm.sh/docs/topics/charts/#templates-and-values)
+			   )
+	 ____________________________________________
+	|componenets:								 |
+	|	- Chart.yaml fields						 |
+	|	- chart types							 |
+	|	- chart dependencies					 |
+	|	- chart LICENSE, NOTES, and README files |
+	|____________________________________________|
+	
+	- chart is a file that describes a set of kubernates resources and is used by helm. It is created as a Chart.yaml file
+	
+	- Chart.yaml file is required for a chart. It contains the following fields:
+	
+		apiVersion: v1			->	 the chart api version (required) -- v1 for older Helm versions, v2 for charts that require Helm3
+		appVersion: "1.0" 		-> 	 the version of the app that this contains (optional). Use quotes
+		version: 0.1.0			->	 required. Must follow semantic versioning 2 standards (https://semver.org/spec/v2.0.0.html)
+		name: myapp				->	 name of the chart (required)
+		description: (example) Helm chart for kubernates (optional)
+		type: application (default) or library 			->	type of the chart (optional, for apiVersion v2) [2]
+		keywords:
+		  - list of keywords about this project (optional)
+		dependencies: (for apiVersion v2): dependencies of other charts
+			- name: nginx		->	name of the chart
+			  version: "1.2.3"  ->	version of the chart
+			  tags:
+		annotations:
+		  something: list of annotations keyed by name (optional)
+		  
+	-------------------------------------------------------------------------------------------------------------
+	- LICENSE.txt, README.md and NOTES.txt
+		they are files that describe the license, installation and configuration and usage of a chart.
+	
+	-------------------------------------------------------------------------------------------------------------
+	- dependencies: a field that lists the dependencies from other charts that this chart depends on.
+	- Once a dependency is defined, run command helm repo add fantastic-charts https://fantastic-charts.storage.googleapis.com to add the repo locally
+	- Next, run command  helm dependency update and it will download all the charts and store them in /charts directory
+	
+	-------------------------------------------------------------------------------------------------------------
+	- Templates and Values
+		 
+		- The templates/ directory is for template files. When Helm evaluates a chart, it will send all of the files in the templates/ directory through the template rendering engine. It then collects the results of those templates and sends them on to Kubernetes.
+		- values.yaml file contains default values for a chart. These values can be overridden with helm install or helm upgrade

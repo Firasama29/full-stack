@@ -1,0 +1,53 @@
+	
+	Encoding / Decoding with java.util.Base64
+	
+	What is Base64 Encoding?
+	- It is an encoding scheme that uses 64 printable characters (A-Z a-z 0-9+/) to replace each character
+		in the original String in an algorithmic way so that it can be decoded later.
+
+	- The process which converts the original String to something else is known as encoding
+	- The reverse process to convert an encoded String to the original content is known as decoding.
+
+	- Prior to Java 8, there was no standard way for encoding/decoding. Developers either used
+	Apache Commons library and its Base64 class to encode or decode binary data into base64 or use
+	Internal Sun classes that are not officially part of JDK.
+	
+	- Java 8 has standard support for Base64 encoding/decoding with java.util.Base64
+	
+	- Types of encoding/decoding Base64:
+	
+		1. Basic Base64 Encoder with methods .getEncoder() and getDecoder()
+			
+			EXAMPLE:
+			/** original text */
+			String original = "Testing Base64 encoding and decoding";
+
+			/** encoding text */
+			String encodedString = Base64.getEncoder().encodeToString(original.getBytes(StandardCharsets.UTF_8));
+			output: VGVzdGluZyBCYXNlNjQgZW5jb2RpbmcgYW5kIGRlY29kaW5n
+			
+			/** decoding text */
+			byte[] asBytes = Base64.getDecoder().decode(encodedString);	
+
+			String decodedString = new String(asBytes, StandardCharsets.UTF_8);
+
+			
+		2. Url Base64 encoding with methods getUrlEncoder() and getUrlDecoder(): it uses the URL and Filename Safe Base64 alphabet. In addition, it does not add any line separation
+			EXAMPLE:
+			String url = "https://www.baeldung.com/java-base64-encode-and-decode";
+
+			/** encoding url string */
+			String encodedUrl = Base64.getUrlEncoder().encodeToString(url.getBytes());
+			output: aHR0cHM6Ly93d3cuYmFlbGR1bmcuY29tL2phdmEtYmFzZTY0LWVuY29kZS1hbmQtZGVjb2Rl
+
+			/** decoding url to string */
+			byte[] decodedUrlBytes = Base64.getDecoder().decode(encodedUrl);
+
+			String decodedUrlString = new String(decodedUrlBytes);
+			
+		3. MIME encoding
+			
+			
+			
+			
+    

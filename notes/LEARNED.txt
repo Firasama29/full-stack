@@ -1,0 +1,22 @@
+LEARNED
+
+	- Maven
+		> Maven in depth
+		> Parent POM vs sub-modules POM
+		> Artifacts
+		> Build Lifecycles, phases and goals
+		> Core maven plugins and custom plugins like liquibase
+		> DependencyManagement vs Dependency
+		> Settings.xml
+		> Super POM
+		> Maven packaging types
+		> Maven scopes
+		> How to create an archetype
+		> How to use a custom archetype to generate a maven project
+				>> clone archetype repo
+				>> mvn clean install to install artifact to local maven repository
+				>> use mvn archetype:generate with custom parameters to use the archetype like archetype coordinates
+	- Application server vs Web server
+	- EntityManager API methods from Java Persistence API
+	- Creating a custom annotation (https://www.baeldung.com/java-custom-annotation)
+	- Collections framwork

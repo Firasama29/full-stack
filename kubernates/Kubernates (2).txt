@@ -1,0 +1,24 @@
+Kubernates
+
+	- a pod the smallest deployable unit in kubernates
+	- a container is the smallest deployable unit in docker
+	- pods can have docker containers within them
+	
+	
+	
+	what we need to have?
+	- minikube
+	- kubectl
+	
+	
+	
+	commands
+	- kubectl version
+	- minikube version
+	- minikube start --nodes=#		(choose number of nodes)
+	- minikube status				(to check the nodes we have)
+	- kubectl get nodes -A			(check all the nodes)
+	- kubectl get pods -A			(check all the pods)
+	- docker ps						(to check the containers created within the pods)
+	
+	

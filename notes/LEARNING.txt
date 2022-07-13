@@ -1,0 +1,93 @@
+LEARNING
+
+	Logging framework sleuth woth spring boot, tracking id and correlation id
+	(https://bank-abc.atlassian.net/wiki/spaces/NA/pages/839647590/Tracking+Correlation+IDs) (done)
+	
+	design patterns
+	
+	the use of artifact.yaml
+	
+	how to generate classes from yaml file (done)
+	
+	java 8
+		- stream API
+		- Optional
+		- Collectors
+			- Collectors.toList()
+			- Collectors.toSet()
+			- Collectors.toMap()
+			- Collectors.toCollection()
+			- Comparator
+	
+	
+	native queries and HQL
+	
+	docker
+	
+	kubernates (including deployment.yaml and service.yaml)
+		- minikube
+		- helm (https://helm.sh/docs/)
+		- helm chart
+		- values.yaml
+		- ingress and nginx
+	
+	PropertyReader (and @Value annotation)
+	
+	Serialization and Deserialization classes
+	
+	JPA & Hibernate
+		- Entity states
+			- transient (new)
+			- persistent (managed)
+			- detached
+			- removed
+		
+		- JPA EntityManager
+			- persist()
+			- remove()
+		
+		- Hibernate
+			- Persistence Context
+			- first and second level cache
+			- Hibernate Session
+				- flush()
+				> persist a transient instance
+					- save(object)
+					- persist(object)
+					- saveOrUpdate(object)
+				> make persistent instance transient
+					- delete()
+				> get a persistent instance
+					- get()
+					- load()
+				> persist a detached instance
+					- update()
+					- saveOrUpdate()
+					- lock()
+					- replicate()
+		- Relational mapping
+		
+		- Transactions
+			- Isolation levels
+				- read uncommitted
+				- read committed
+				- repeatable read
+				- serializable
+			- Read phenomena
+				- dirty read
+				- non-repeatable read
+				- phantom read
+			- propagation
+				- MANDATORY
+				- SUPPORTS
+				- NOT_SUPPORTED
+				- REQUIRED
+				- REQUIRED_NEW
+				- NEVER
+				- NESTED
+				
+			- Write vs Read-only transactions
+		- Multiple data sources
+		- connection pooling (hikari)		
+	
+	

@@ -1,0 +1,37 @@
+Built-in objects or values or pre-defined values
+(
+	sources:
+	https://helm.sh/docs/chart_template_guide/builtin_objects/
+	values: https://helm.sh/docs/chart_template_guide/values_files/
+)
+	Objects can be passed into a template from the template engine
+	
+	
+	Release: a top-level object that can be accessed in our templates. It describes the release itself
+		- Objects:
+			- Release.Name				-> release name
+			- Release.Namespace			-> namespace the chart was released into
+			- Release.IsUpgrade			-> true if the current operation is upgrade or rollback
+			- Release.IsInstall			-> true if the current operation is install
+			- Release.IsRevision		-> revision number of the release. It's 1 on install, and incremented with each upgrade and rollback
+			- Release.Service			-> service that is rendering the present template or conducting the release. On helm, it's always Helm
+	
+	--------------------------------------------------------------------------------------------------------------------------------------------
+	Values: Values object provides values passed to the charts supplied from the values.yaml file and from user-supplied files. The values can then be used in templates files
+		example: in deployment file	-> 
+		-------------------------------
+		spec:
+			replicas: {{ .Values.replicaCount }}
+	
+	--------------------------------------------------------------------------------------------------------------------------------------------
+	Chart: a file that describes a set of kubernates resources and is used by helm. It is created as a Chart.yaml file
+		{{ .Chart.Name }} and {{ .Chart.Version }}
+		
+	--------------------------------------------------------------------------------------------------------------------------------------------
+	Files
+	
+	--------------------------------------------------------------------------------------------------------------------------------------------
+	Capabilities
+	
+	--------------------------------------------------------------------------------------------------------------------------------------------
+	Template

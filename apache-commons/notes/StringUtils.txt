@@ -1,0 +1,45 @@
+	StringUtils
+	
+	Source
+	(https://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html)
+	(baeldung.com/string-processing-commons-lang)
+	
+	org.apache.commons.lang3.StringUtils
+	
+	extends Object
+	
+	- performs null-safe operations on Strings.
+	- many StringUtils methods have corresponding ones defined in class java.lang.String that are not null-safe.
+	
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>	
+	EXAMPLES: (code in C:\Users\DELL\Desktop\temp\Practice)
+	
+	- isEmpty() / isBlank()	: checks if a String contains text
+	
+	- equals / compare 		: compares 2 Strings in a null-safe manner
+	
+	- containsAny()			: checks if a String contains any character in a given set of characters
+			
+	- containsIgnoreCase()	: checks if a String contains another String, and it is case insensitive
+	
+	- appendIfMissing() / appendIfMissingIgnreCase()	: appends a suffix to the end of a given String if it does not already end with it.
+	
+	- prependIfMissing() / prependIfMissingIgnoreCase()	: prepends a prefix to the beginning of a given String if it does not already begin with it.
+	
+	- swapCase() / capitalize() / uncapitalize()
+	
+	- reverse() / reverseDelimited()
+	
+	- rotate()		: 		circularly shifts characters of a String a number of positions
+	
+	- difference()	: compares 2 Strings and returns the remainder of the second String
+	
+	
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>	
+	common words relating to StringUtils
+	
+	- null			-		null
+	- empty			- 		zero-length String ("")
+	- space			-		space character	(" ", char32)
+	- whitespace 	-		characters defined by Character.isWhiteSpace(char)
+	- trim			- 		characters <= 32 as in String.trim()

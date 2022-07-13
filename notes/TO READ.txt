@@ -1,0 +1,35 @@
+	to read
+	feign retry mechanism
+	
+	
+	Print Logs Output as JSON String in Spring Boot Java — Log4j2
+	(https://medium.com/@vinod.bhatt/print-logs-output-as-json-string-in-spring-boot-java-log4j2-7577c8e9229b)
+	
+	Why an Interface Can Not Implement Another Interface?
+	(https://medium.com/javarevisited/why-an-interface-can-not-implement-another-interface-b298d0290b1)	
+	
+	Best practices to communicate between microservices
+	(https://irfanyusanif.medium.com/how-to-communicate-between-microservices-7956ed68a99a)
+	
+	Must Know Java Concepts — Files & I/O
+	(https://medium.com/geekculture/must-know-java-concepts-files-io-3a58399f2b80)
+	
+	How to Generate QR Code in Java Spring Boot
+	(https://medium.com/nerd-for-tech/how-to-generate-qr-code-in-java-spring-boot-134adb81f10d)
+	
+	ActiveMQ in Spring boot using JMSTemplate
+	(https://medium.com/@ankithahjpgowda/activemq-using-jmstemplate-in-spring-boot-710b168d8fd3)
+	
+	Effective Microservices: 10 Best Practices
+	(https://towardsdatascience.com/effective-microservices-10-best-practices-c6e4ba0c6ee2)
+	
+	How to Customize Feign’s Retry Mechanism
+	(https://medium.com/swlh/how-to-customize-feigns-retry-mechanism-b472202be331)
+	
+	Advance Java Interview Questions
+	(https://medium.com/@sunny21700254/advance-java-interview-questions-66710f15d0a4)
+	
+	Microservice Architecture — Communication & Design Patterns
+	(https://blog.devgenius.io/microservice-architecture-communication-design-patterns-70b37beec294)
+	
+	

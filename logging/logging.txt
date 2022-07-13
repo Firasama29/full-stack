@@ -1,0 +1,16 @@
+Logging
+--------
+
+	logging properties:
+	-------------------
+	log.file							=>			writes logs to a specific file
+	log.path							=>			writes spring.log to specified directory
+	log.file.max-size					=>			to change size limit of log file
+	log.level.<logger-name>=<level>		=>			to set logging level to INFO, DEBUG, TRACE, WARNING, ERROR or OFF
+	log.level.root						=> 			to configure the root logger
+	
+	EXAMPLE:
+		log.level.root=warn
+		log.level.org.springframework.web=debug
+		log.level.org.hibernate=error
+	

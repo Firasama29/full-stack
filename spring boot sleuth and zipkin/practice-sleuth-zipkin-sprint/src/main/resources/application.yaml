@@ -1,0 +1,10 @@
+server:
+  port: 8082
+
+spring:
+  boot:
+    application: practice-sleuth-zipkin-sprint
+
+logging:
+  file:
+    name: D:/practice/sprintLoggingFile

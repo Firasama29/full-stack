@@ -1,0 +1,31 @@
+openapi: 3.0.0
+info:
+  title: practice
+  description: testing class generation using swagger openapi
+  version: "1"
+servers:
+  - url: http://localhost
+  - url: https://localhost
+paths:
+  /test:
+    get:
+      description: get details
+      parameters:
+        - in: query
+          name: id
+          schema:
+            type: string
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestResponse'
+components:
+  schemas:
+    TestResponse:
+      type: object
+      properties:
+        id:
+          type: number

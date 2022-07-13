@@ -1,0 +1,22 @@
+goal of this project is to practice
+
+
+first goal: create a microservice that uses swagger openapi to generate classes
+	
+-----------
+	
+	
+second goal: learn how to build a custom maven plugin	
+	 
+------------
+
+
+
+goal: create multiple microservices and connect them	
+	 
+------------
+	- lib-swagger microservice
+	
+	- practice microservice
+	
+	- import lib-swagger using maven

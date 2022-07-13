@@ -1,0 +1,37 @@
+	String, StringBuffer and StringBuilder
+	
+	Source(https://www.baeldung.com/java-string-builder-string-buffer)
+	
+	String
+	
+	- String is an immutable class so it cannot be modified.
+	- When attempting to modify a String, a new object is created
+	
+			String string = "test";
+			string = "test2";
+			
+			output = "test2"
+	
+--------------------	
+	StringBuffer
+	
+	- StringBuffer is a mutable sequence of characters, so it can be modified using .append() method
+	- StringBuffer is synchronized so it is thread safe
+	
+		StringBuffer stringBuffer = new StringBuffer("test");
+		stringBuffer.append(" test2");
+		
+		output = "test test2"
+--------------------
+	StringBuilder
+	
+	- StringBuilder is a mutable sequence of characters so it can be modified using .append() method
+	- Unlike StringBuffer, StringBuilder is not synchronized therefore not thread safe
+	- Since it is not thread safe, it is faster than StringBuffer and recommended in single-thread programs
+		
+		StringBuilder stringBuilder = new StringBuilder("test");
+		stringBuilder.append(" test2");
+		
+		output = "test test"
+		
+	NOTE: performance difference between StringBuffer and StringBuilder is insignificant	

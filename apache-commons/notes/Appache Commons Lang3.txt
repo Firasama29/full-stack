@@ -1,0 +1,23 @@
+	
+	Appache Commons Lang3 library
+	
+	Sources
+	(https://www.baeldung.com/java-commons-lang-3)
+	(https://www.baeldung.com/string-processing-commons-lang)
+	
+	
+	- dependency. Latest version (https://search.maven.org/classic/#search%7Cga%7C1%7Cg%3A%22org.apache.commons%22%20AND%20a%3A%22commons-lang3%22)
+	
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.8.1</version>
+		</dependency>
+	
+	contains utility classes with methods for handling Strings, numbers, dates, concurrency, etc.
+	
+	- StringUtils
+	- ArrayUtils
+	- NumberUtils
+	
+	

@@ -1,0 +1,58 @@
+
+JACKSON LIBRARY
+Source
+(https://www.baeldung.com/jackson-object-mapper-tutorial)
+Jackson Serialization features (https://github.com/FasterXML/jackson-databind/wiki/Serialization-Features)
+
+
+maven dependency (repository: https://search.maven.org/classic/#search%7Cgav%7C1%7Cg%3A%22com.fasterxml.jackson.core%22%20AND%20a%3A%22jackson-databind%22)
+	<dependency>
+		<groupId>com.fasterxml.jackson.core</groupId>
+		<artifactId>jackson-databind</artifactId>
+		<version>2.11.1</version>
+	</dependency>
+	
+	
+	This dependency will add these two libraries:
+		- jackson-annotations
+		- jackson-core
+		
+		
+	
+Common ObjectMapper methods:
+		
+>>>>>>>>>>>- readValue()	: used to parse or deserialize JSON content into Java object
+		
+		>>>> reads a json string and converts it into a Java object
+			String json = "{\"name\":\"objectMapper test\",\"author\":\"firas\"}";	
+			> Example example = objectMapper.readValue(json, Example.class);
+			
+		>>>> reads a json file and converts it into a Java object
+			> objectMapper.readValue(new File(example.json), Example.class);
+			
+		>>>> reads a URL and converts it into a Java object
+			> objectMapper.readValue(new Url("file:src/somewhere.json"), Example.class);
+			
+		>>>> parse json into json node object to get data of a single node
+			> String jsonString = "{\"name\":\"objectMapper test\",\"author\":\"firas\"}";
+			> JsonNode jsonNode = objectMapper.readTree(jsonString).get("name");
+			> return jsonNode;
+			>>>> convert the node to a string
+				String node = jsonNode.toString();
+				
+		>>>> reads a json string and converts it into list
+			> String jsonString = "{\"name\":\"objectMapper test\",\"author\":\"firas\"}";
+			List<Example> exampleList = objectMapper.readValue(jsonString, new TypeReference<List<Example>>(){});
+		
+		>>>> reads a json string and converts it into map
+			> String jsonString = "{\"name\":\"objectMapper test\",\"author\":\"firas\"}";
+			Map<String, Object> exampleMap = objectMapper.readValue(jsonString, new TypeReference<Map<String, String>(){});
+			
+>>>>>>>>>>>- writeValue()	: used to serialize Java object into JSON output
+			
+			> objectMapper.writeValue(new File("example.json), example);
+		
+		
+		- writeValueAsString()	: generates json from Java object and returns that json as a string
+			
+			> String something = objectMapper.writeValueAsString(example);

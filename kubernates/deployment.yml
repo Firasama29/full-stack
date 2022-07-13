@@ -1,0 +1,75 @@
+deployment.yaml structure
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp   or {{ include "myapp.fullname" . }}
+  labels:
+    app.kubernates.io/name: {{ include "myapp.name" . }}
+    helm.sh.chart: {{ include "myapp.chart" . }}
+    app.kubernates.io/instance: {{ .Release.name }}
+    app.kubernates.io/managed-by: {{ Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernates.io/name: {{ include "myapp.name" . }}
+      app.kubernates.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernates.io/name: {{ include "myapp.name" . }}
+        app.kubernates.io/instance: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /sharedFiles
+              name: shared-files
+          env:
+            - name: SOME_THING
+              value: {{ .Values.something }}
+            - name: db_host
+              value: {{ .Values.env.db_host }}
+            - name: db_username
+              value: {{ .Value.env.db_username }}
+            - name: db_password
+              value: {{ .Values.env.db_password }}
+            - name: db_name
+              value: {{ .Values.env.db_name }}
+            - name: pool_connection_timeout
+              value: {{ .Values.env.pool_connection_timeout || quote }}
+            - name: pool_idle_connection_timeout
+              value: {{ .Values.env.pool_idle_connection_timeout || quote }}
+            - name: pool_maximum_size
+              value: {{ .Values.env.pool_maximum_size }}
+            - name: pool_minimum_idle_connection
+              value: {{ .Values.env.pool_minimum_idle_connection }}
+            - name: pool_connection_maximum_lifetime
+              value: {{ .Values.env.pool_connection_maximum_lifetime }}
+            - name: spring.profiles.active
+              value: {{ .Values.env.spring.profiles.active }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}    
+            
+          terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}  
+          command: ['sh', '-c', 'sleep 60']
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}    
+    

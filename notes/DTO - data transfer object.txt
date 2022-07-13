@@ -1,0 +1,8 @@
+DTO
+		A DTO is a class that is used to limit data access of another domain object. It can contain fields of one or more objects
+		
+		A DTO defines part or all data of an object/objects
+		
+		This is useful for clean code and decoupling objects while keeping the objects separate, which eliminates the need to do the linking in service class
+		
+		It's also useful because it keeps presentation and domain layer separate, which means presentation layer isn't depedendent on domain objects since it can access the data from the DTO instead of directly accessing it from domain object

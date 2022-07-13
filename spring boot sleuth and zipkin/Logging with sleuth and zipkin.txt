@@ -1,0 +1,160 @@
+Logging with spring boot and sleuth & zipkin
+(https://javatechonline.com/how-to-implement-distributed-logging-tracing-using-sleuth-zipkin/)
+
+	WHY USE LOGGING FRAMEWORK?
+	- In Microservices architecture, we have small services, therefore we need to maintain multiple log files
+	- In this case, correlating the logs to a particular request becomes difficult
+	- Also, identifying root case becomes complicated
+
+SLEUTH
+	- Tracing:
+		is the process of tracking the execution path or flow of microservices to a request
+	
+	- Logging:
+		- is the process of admitting log messages to a trace. Messages can be of type INFO, DEBUG, etc.
+		- It provides unique ids:
+			
+				>>>> Trace id: can be used to identify the flow of execution for all invloved microservices 
+				
+				>>>> Span id: only applicaple to the flow of one microservice
+				
+				>>>> parent id: during the flow of execution, span id of the previous service becomes parent id of next service
+				
+																|====================|
+																|	trace id: 1234	 |
+																|====================|
+																		  |
+									______________________________________|______________________________________
+									|									  |										|
+							|====================|              |====================|				|====================|
+							|    span id: X		 |				|	 span id: Y 	 |				|	span id: 0987	 |
+							|					 |              |					 |				|					 |
+							|                    |              |    parent id: X    |				|   parent id: Y     |
+							|====================|				|====================|              |====================|
+
+		
+CONFIGURE SLEUTH IN APPLICATION	
+	1. Maven dependency
+		-----------------
+		
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-starter-sleuth</artifactId>
+			</dependency>
+	
+	2. To configure sleuth in spring boot application and log its tracking information, update logback file in a logback folder: (OPTIONAL)
+	
+		<?xml version="1.0" encoding="UTF-8"?>
+		<configuration packagingData="true">
+		 
+		<include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+		 
+		<property name="log.stdout.pattern"
+		value="%green(%d{yyyyMMdd'T'HHmmss}) %magenta([%thread]) %highlight(%-5level) %cyan(%logger{15}) %msg%n"/>
+		<property name="log.aws.pattern"
+		 value="%d{yyyyMMdd'T'HHmmss} ${LOG_LEVEL_PATTERN:-%5p} %thread %logger{15} %msg%n"/>
+		<property name="log.group" value="/com/neo/iban"/>
+		<property name="log.level" value="INFO"/>
+		<property name="log.region" value="eu-west-1"/>
+		<property name="log.maxBatchLogEvents" value="50"/>
+		<property name="log.maxFlushTimeMillis" value="30000"/>
+		<property name="log.maxBlockTimeMillis" value="5000"/>
+		<timestamp key="date" datePattern="yyyyMMdd"/>
+		 
+		<shutdownHook class="ch.qos.logback.core.hook.DelayingShutdownHook"/>
+		 
+		<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+		<pattern>${log.stdout.pattern}</pattern>
+		</encoder>
+		</appender>
+		 
+		<appender name="ASYNC_AWS_LOG_APPENDER" class="ca.pjer.logback.AwsLogsAppender">
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+		<level>${log.level}</level>
+		</filter>
+		<layout>
+		<pattern>${log.aws.pattern}</pattern>
+		</layout>
+		<logGroupName>${log.group}</logGroupName>
+		<logStreamName>neo-${date}</logStreamName>
+		<maxBatchLogEvents>${log.maxBatchLogEvents}</maxBatchLogEvents>
+		<maxFlushTimeMillis>${log.maxFlushTimeMillis}</maxFlushTimeMillis>
+		<maxBlockTimeMillis>${log.maxBlockTimeMillis}</maxBlockTimeMillis>
+		<logRegion>${log.region}</logRegion>
+		</appender>
+		 
+		<springProfile name="local">
+		<root level="${log.level}">
+		<appender-ref ref="STDOUT"/>
+		</root>
+		</springProfile>
+		 
+		<springProfile name="dev">
+		<root level="${log.level}">
+		<appender-ref ref="ASYNC_AWS_LOG_APPENDER"/>
+		</root>
+		</springProfile>
+		</configuration>
+		
+	3. Add bootstrap.yml file:
+		why? because Sleuth has problem with loading up the application name if the name is only configured in application.yaml.
+		So create a bootstrap.yml file with the application name which should be loaded before application.yml
+		
+			spring:
+			  application:
+				name: 'application-name'
+				
+	4. Configure AOP for logging. Either in the same project or a separate one and add it as a dependency
+	
+
+ZIPKIN
+	- This is an alternative to AWS cloudwatch since I don't have access from my machine
+	- Has two parts: zipkin client and zipkin server
+	- Client has a sampler that collects data from all microservices with the help of sleuth and provides it to zipkin server
+	- There must be only one centralized zipkin server which collects data from client and displays it in UI
+	
+
+CONFIGURE ZIPKIN IN APPLICATION
+		1. Add dependency
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-sleuth-zipkin</artifactId>
+			</dependency>
+			
+		2. download from link: https://www.mediafire.com/file/jmpqrenm0yudehy/ZipkinExecutable.zip/file
+		3. Extract to folder 'ZipkinExecutable'
+		4. in the above location, open command prompt and run this command to run the jar file:
+			>>>>>> 	java -jar zipkin-server-2.12.9-exec.jar
+		5. If Zipkin Server started successfully, you will see message something like “Started ZipkinServer in 14.094 seconds (JVM running for 15.452)”
+		6. open browser and paste enter url http://localhost:9411/zipkin/
+		7. Click on 'Find Traces' it will display Showing: 0 of 0
+	
+	
+DEVELOP APPLICATIONS AND INTEGRATE SLEUTH AND ZIPKIN
+	1. Create multiple spring boot microservices. Make sure to add spring web starter depenedency
+	2. In application.yaml file, add server port, application name and logging directory to save the logs in a text file
+	3. Create a config class in each microservice to add Sampler bean of zipkin client
+					============================================
+					@Configuration
+					Class AppConfig {
+						@Bean
+						public Sampler collectLogs() {
+							return Sampler.ALWAYS_SAMPLE;
+						}
+					}
+	4. Use either feignClient or restTemplate (make sure you autowire restTemplate in the controller)
+	
+	5. Create a method and use restTemplate to connect with another microservice.
+	
+	6. Use Slf4j logger to print some messages
+	
+	7. Start zipkin server and run each microservice
+	
+	8. Go to browser and enter url for each microservice. Start first with one microservice that calls another microservice
+	
+	9. Go to http://localhost:9411/zipkin/ and click Find Trace. You will be able to see running microservices highlighted in green color
+	
+	10. Click on the blue bar to see the trace record of each microservice. Click on any option, a popup window will appear
+	
+	11. Click on show IDs, you will find traceId, spanId and parentId. Copy traceId from here and go to logfiles on your machine. Ctrl + F and paste the id there  to see all log lines related to current request

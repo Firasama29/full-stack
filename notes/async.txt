@@ -1,0 +1,15 @@
+
+    @Async
+    public CompletableFuture<CreditCardAvailabilityData> getCreditCardsApplicationAvailability(GenericRestParamDto genericRestParamDto) {
+        CreditCardAvailabilityData creditCardAvailabilityData = CreditCardAvailabilityData.builder().showApplication(Boolean.FALSE).build();
+        try {
+            creditCardAvailabilityData = creditCardsClient.getCreditCardsApplicationAvailability(
+                    genericRestParamDto.getCustomerId(),
+                    genericRestParamDto.getLocale().getLanguage(),
+                    genericRestParamDto.getUnit(),
+                    genericRestParamDto.getUserId()).getData();
+        } catch (Exception ex) {
+            log.error("Error while calling get card list API:", ex);
+        }
+        return CompletableFuture.completedFuture(creditCardAvailabilityData);
+    }

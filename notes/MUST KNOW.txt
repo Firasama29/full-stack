@@ -1,0 +1,35 @@
+	
+	Must know java concepts
+	
+	
+	Must Know Java Concepts — Serialization
+	(https://medium.com/geekculture/must-know-java-concepts-serialization-e9153317648b)
+	
+	Synchronization
+	(https://medium.com/geekculture/must-know-java-concepts-threads-ii-4092c2bc9ae2)
+	
+	Multithreading
+	(https://medium.com/geekculture/must-know-java-concepts-threads-i-7f660c664ff8)
+	
+	Serialization
+	(https://medium.com/geekculture/must-know-java-concepts-serialization-e9153317648b)
+	
+	Files & I/O
+	(https://medium.com/geekculture/must-know-java-concepts-files-io-3a58399f2b80)
+	
+	Exception Handling
+	(https://medium.com/geekculture/must-know-java-concepts-exception-handling-204417bcf621)
+	
+	Collections
+	(https://medium.com/geekculture/must-know-java-concepts-collections-e5a43c3ac21b)
+	
+	Generics
+	(Generics)
+	
+	Object Oriented Programming
+	(https://medium.com/geekculture/must-know-java-concepts-object-oriented-programming-ab2c816294a9)
+	
+	Features, JDK & Program Execution
+	(https://medium.com/geekculture/must-know-java-concepts-features-jdk-program-execution-e1590ea056f1)
+	
+	

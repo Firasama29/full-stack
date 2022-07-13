@@ -1,0 +1,36 @@
+helm
+	(
+		source: https://helm.sh/docs/
+		https://helm.sh/docs/topics/architecture/
+	)
+	 ____________________________________________
+	|componenets:								 |
+	|	- what is helm							 |
+	|	- how helm works						 |
+	|	- important helm concepts				 |
+	|	- helm directory structure				 |
+	|	- helm charts							 |
+	|	- build-in objects/values				 |
+	|	- helm templates						 |
+	|____________________________________________|
+	
+	- what is helm?
+	helm is a tool for managing kubernates packages (charts)
+	
+	- how helm works:
+		* create helm charts
+		* package charts into chart archive (tgz) files
+		* interact with chart repositories where charts are stored
+		* install and uninstall charts into an existing kubernates cluster
+		* manage release cycle of charts that were installed with helm
+		
+	- important helm concepts
+		* chart: a bundle of information that helps create an instance of kubernates application
+		* config: contains configuration information that can be merged into packaged charts to create releasable objects
+		* release: a running instance of helm chart
+	helm directory structure
+	
+	Chart.yaml		-> contains information about helm chart (https://helm.sh/docs/topics/charts/#the-chartyaml-file)
+	values.yaml		-> default configuration values for the chart
+	/templates		-> this directory along with values.yaml will be used to generate valid kubernates manifest files
+	

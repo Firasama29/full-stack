@@ -1,0 +1,25 @@
+CharSequence vs String
+
+Source (https://www.baeldung.com/java-char-sequence-string)
+
+	CHARSEQUENCE
+
+	- CharSequence is an interface that represents a sequence of characters
+	- It does not force mutability, so both mutable and immutable classes can implement charSequence
+	- Since it is an interface, it cannot be instantiated directly, so an implementation is needed to instantiate a variable
+		For example, StringBuilder and StringBuffer
+		
+		CharSequence charSequence = new StringBuilder("charsequence instantiation using a StringBuilder");
+		
+		CharSequence charSequence2 = new StringBuffer("charsequence instantiation using a StringBuffer");
+		
+	
+	STRING
+	
+	- A string is a class and a sequence of characters.
+	- A string is immutable
+	- A string implements Serializable, Comparable<String> and CharSequence.
+	
+	
+	String and CharSequence are not equal to each other
+

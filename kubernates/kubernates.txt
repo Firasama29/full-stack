@@ -1,0 +1,65 @@
+kubernetes 
+(source: 
+	https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/
+	ingress: https://www.ibm.com/cloud/blog/kubernetes-ingress#:~:text=Kubernetes%20Ingress%20is%20an%20API,each%20service%20on%20the%20node.
+	
+	
+	
+)
+
+---------------------------------------
+	topics:
+	
+		- kubernetes ingress
+		- ingress controllers
+		- nginx ingress controller
+		- set up ingress on minikube with nginx ingress controller
+		
+		
+		
+---------------------------------------		
+	
+	how to use kubernetes to deploy an application?
+	
+	Use deployment.yaml file and service.yaml file
+		- the deployment file is used to oversee the pods running the application itself
+		
+		- the service is used to expose the application
+		
+	- kubernetes OBJECTS:
+		- they are persistent entities that kubernetes use to represent the state of a cluster. They describe:
+			-> what containerized applications are running (and on which nodes)
+			-> resources available for thise applications
+			-> policies around how those applications should behave (restart policies, upgrades, fault-tolerance)
+		- Once you create a kubernetes object, kubernetes makes sure it continues to exist
+		- You can use kubectl to create, update, delete the objects.
+		---------------------------------------------
+		- Objects spec VS. Objects status
+			----> status (nested object):
+				----> represents the current status of your object, supplied by kubernetes. kubernetes actively manages the actual state of the application to match the desired state
+			----> spec (nested object):
+				----> represents the desired state
+		---------------------------------------------
+		- Types of kubernetes objects:
+			----> Deployment
+				----> an object that represents an application running in your cluster
+				----> One way to create a Deployment using a .yaml file is to use the kubectl apply command passing the .yaml file as an argument:
+					<<<< kubectl apply -f https://k8s.io/examples/application/deployment.yaml --record >>>>
+					output:
+					<<<< deployment.apps/nginx-deployment created >>>>
+					
+				----> structure:
+					apiversion: app/v1
+					kind: Deployment
+				------------------
+			----> Service
+				----> structure
+					apiversion: v1
+					kind: Service
+				------------------
+			----> Pod (https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-v1/)
+				----> structure
+					apiversion: v1
+					kind: Pod
+	
+	

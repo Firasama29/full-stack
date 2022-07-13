@@ -1,0 +1,10 @@
+server:
+  port: 8081
+
+spring:
+  boot:
+    application: practice-sleuth-zipkin-task
+
+logging:
+  file:
+    name: D:/practice/taskLoggingFile

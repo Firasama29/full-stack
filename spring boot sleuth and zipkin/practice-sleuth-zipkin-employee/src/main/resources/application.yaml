@@ -1,0 +1,11 @@
+
+server:
+  port: 8080
+
+spring:
+  application:
+    name: practice-sleuth-zipkin-employee
+
+logging:
+  file:
+    name: D:/practice/employeeLoggingFile

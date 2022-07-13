@@ -1,0 +1,43 @@
+deployment.yaml structure (source: https://kubernetes.io/docs/concepts/overview/working-with-objects/kubernetes-objects/)
+
+required fields:
+	apiVersion: apps/v1					->		version of kubernates API used to create this object
+	kind: Deployment OR Service	or Pod	->		kind of object
+	metadata							-> 		data that uniquely identifies the object (like name, namestapce, etc)
+	spec (nested field)					->		description of desired state of the object
+													- configuration settings provided by user
+													- default values expanded by the system
+	--------------------------------------------------------------------------------------------------------------------------------------------
+	recommended labels to use in deployment.yaml (source: https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels/):
+		key									description								example												type
+		---									-----------								-------												----
+		app.kubernetes.io/name			The name of the application			 	 	mysql												string
+		
+		app.kubernetes.io/instance		A unique name identifying the
+										instance of an application			 		mysql-abcxzy										string
+										
+		app.kubernetes.io/version		The current version of the application 
+										(e.g.a semantic version, etc.)				5.7.21												string
+										
+		app.kubernetes.io/component		The component within the architecture		database											string
+		
+		app.kubernetes.io/part-of		The name of a higher level application
+										this one is part of							wordpress											string
+										
+		app.kubernetes.io/managed-by	The tool being used to manage
+										the operation of an application				helm												string
+										
+		app.kubernetes.io/created-by	The controller/user who created this
+											resource								controller-manager									string
+		example:
+		apiVersion: apps/v1
+		kind: StatefulSet
+		metadata:
+		  labels:
+			app.kubernetes.io/name: mysql
+			app.kubernetes.io/instance: mysql-abcxzy
+			app.kubernetes.io/version: "5.7.21"
+			app.kubernetes.io/component: database
+			app.kubernetes.io/part-of: wordpress
+			app.kubernetes.io/managed-by: helm
+			app.kubernetes.io/created-by: controller-manager									

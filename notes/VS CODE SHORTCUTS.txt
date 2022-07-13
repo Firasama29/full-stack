@@ -1,0 +1,3 @@
+VS CODE SHORTCUTS
+
+	ctrl and \		-> split view

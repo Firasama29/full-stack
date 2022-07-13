@@ -1,0 +1,101 @@
+udemy jenkins course
+https://www.udemy.com/course/jenkins-beginner-tutorial-step-by-step/learn/lecture/10074826#overview
+
+
+>>>> installation
+1. Download LTS jenkins as a war file
+
+2. In command line, go to the location of the file, type java -jar jenkins.war. Jenkins will be up and running and accessable at port 8080
+
+3. In initial jenkins setup, you will get a password as in below
+	
+		Jenkins initial setup is required. An admin user has been created and a password generated.
+		Please use the following password to proceed to installation:
+
+		6c723d5b8f564c4c9023c70c638c06a7
+
+		This may also be found at: C:\Users\Zain Alabidin\.jenkins\secrets\initialAdminPassword
+		
+4. Go to localhost:8080, and enter the password. The next window will prompt you to install suggested plugins or select plugins that you want.
+
+5. After plugins installation and either create an admin user or continue as an admin.
+
+6. You can access all files and plugins in .jenkins folder
+------------------------------------------------------------------------------------------------------------------------------
+
+>>>>CHANGING HOME DIRECTORY OF .jenkins folder
+	# Why would you need to change the directory of .jenkins folder (Home directory)?
+		>>/ based on project requirements
+		>>/ to move it to a directory that has more desk space as we have more and more jenkins jobs.
+		
+	# steps:
+		1#	Dashboard	->	manage jenkins	->	configure system
+		
+		2#	Create a new folder to replace home directory
+		
+		3#	Copy all data from home directory to the new directory
+		
+		4#	In environment variables, add the new directory as JENKINS_HOME
+		
+		5# to stop jenkins, press ctrl + c in cmd. To restart, type command java -jar jenkins.war
+		
+>>>> configure Jenkins CLI (http://localhost:8080/cli/)
+
+	You can access various features in Jenkins through a command-line tool (documentation: https://www.jenkins.io/doc/book/managing/cli/)
+	
+	1#	download jenkins-cli.jar
+	
+	2# excute this command to run it
+			
+			java -jar jenkins-clie.jar -s http://localhost:8080/ -webSocket help
+		
+>>>> Creating users and manage user roles
+
+	1#	Manage Jenkins		-> 		Manage Users		->		Create User
+		
+	2# to configure user roles, go to manage jenkins	->		Manage Plugins		->		Select Available 	-> Search for role-based authentication strategy	-> download and install
+	
+	3# enable the plug by going to Manage Jenkins	-> Configure Global Security	-> tick Role-Based Strategy (visible only after installing the plugin and restarting jenkins)
+	
+	4# to grant access permissions to users:
+		1 - Manage Jenkins	-> Manage and Assign Roles	-> Manage roles
+			----------------------------
+			- For Global roles: Add a new role and select the desired permissions like view access
+		
+			- For Item roles: Add a new role and pattern and select desired permissions and give it a pattern like Dev.* or Test.*
+			
+		2 - Manage Jenkins	-> Manage and Assign Roles	-> Assign roles
+		
+			- For Global roles: Add user	-> tick the correct global role
+			
+			- For Item roles: 	Add user	-> tick the correct item role
+			
+			- Create a project that starts with Dev or Test. The user assigned with developer or tester roles will be granted access to
+				dev or test projects respectivly
+
+>>>>Basic Configurations:
+Dashboard	-> Manage Jenkins	->	Configure System
+	
+	1#	Adding system message, will be displayed in dashboard.
+		- You can add html tags by enabling Safe HTML in Configure Global Security
+	
+	2#	# of executors	: maximum number of parallel jobs that jenkins is able to execute
+	
+	3# Labels (?)
+	
+	4# Quiet period (in seconds): 	if this option is > 0, newly triggered builds will be added to a queue and jenkins will wait for the specified time before starting the build.
+	
+	5# SCM checkout retry count (?)
+	
+	6# Restrict project naming: to restrict naming strategy of jobs
+		
+			# Default	-> allows user to choose any name
+			----------------------------
+			# Pattern	-> defines a regular expressions to check if job's name is valid or not
+			----------------------------
+			# Role-Based Strategy	-> restricts job creation according to role based settings:
+				--> global role allows creating a job with any name
+				--> project role restricts job creation according to defined pattern
+				
+	7# Global properties:
+		--> Environment variables	->	 any variable defined here will be available globally to all jenkins jobs. Use them as ${variable}

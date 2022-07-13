@@ -1,0 +1,87 @@
+Kubernates objects in detail
+----------------------------
+SOURCES:
+	(
+		metadata:
+			https://kubernetes.io/docs/reference/kubernetes-api/common-definitions/object-meta/#ObjectMeta						https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#metadata
+			
+		namespace (https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/)
+		
+		name & uid (https://kubernetes.io/docs/concepts/overview/working-with-objects/names/)
+		
+		labels (https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/)
+		
+		Deployment (https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/deployment-v1/#update-replace-status-of-the-specified-deployment)
+		(https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/deployment-v1/#DeploymentSpec)
+		
+		selector (https://kubernetes.io/docs/reference/kubernetes-api/common-definitions/label-selector/#LabelSelector)	
+		
+		Pod
+		(https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-v1/)
+		(https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec)
+			
+					
+	)
+--------------------------------------------------------------------------------------------------------------------------------
+	
+	----> Deployment
+				----> an object that represents an application running in your cluster
+				----> One way to create a Deployment using a .yaml file is to use the kubectl apply command passing the .yaml file as an argument:
+					<<<< kubectl apply -f https://k8s.io/examples/application/deployment.yaml --record >>>>
+					output:
+					<<<< deployment.apps/nginx-deployment created >>>>
+					
+				----> STRUCTURE:
+					apiversion: apps/v1
+					kind: Deployment
+					metadata:
+					  namespace: a DNS compatible label that objects are subdivided into. Default namespace is 'default'
+					  name: string that uniquely identifies this object within the current namespace
+					  uid: a unique in time and space value used to distinguish between objects with the same name that have been deleted and 
+						   recreated
+					  labels: a map of string keys and values that can be used to organize and categorize objects
+					
+					spec:
+					  replicas: number of desired pods. Default is 1
+					  selector:
+					    matchLabels
+					    matchExpressions: matchExpressions is a list of label selector requirements. The requirements are ANDed.
+					  template: describes the pods that will be created
+					    metadata:
+						  labels:
+						    app.kubernetes.io/name: ..
+							app.kubernetes.io/instance: ..
+						  annotations:
+							..
+						spec:
+						  containers:
+						    - name: {{ Chart.Name }}
+							  image: ..
+							  imagePullPolicy: Always
+							  ports:
+							    - name: http
+								  containerPort: ..
+								  protocol: TCP
+							  volumeMounts:
+							    mountPath: /sharedFiles
+								name: shared-files
+					  strategy:	describes how to replace existing pods with new ones
+					    type: type of deployment
+							("Recreate" = kill all existing pods before receeating new ones)
+							("RollingUpdate" (default) = replace old ReplicaSets by new ones)
+						rollingUpdate: present only if type = RollingUpdate
+						  maxSurge: maximum number of pods that can be scheduled above the desired number of pods (Absolute number or percentage)
+						  maxUnavailable: maximum number of pods that can be unavailable during the update (Absolute number or percentage)
+					status:
+					  
+	=============================================================================================================================================
+	----> Service
+				----> structure
+					apiversion: v1
+					kind: Service
+					
+	=============================================================================================================================================
+	----> Pod (https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-v1/)
+		----> structure
+			apiversion: v1
+			kind: Pod

@@ -1,0 +1,19 @@
+kubernates commands (https://minikube.sigs.k8s.io/docs/commands/)
+
+	minikube start --nodes=2														->	 starting a cluster and new docker container for minikube
+	minikube start																	->	 restarting existing docker container for minikube
+	minikube status
+	minikube dashboard																-> 	 directs you to a dashboard ui
+		
+	kubectl create deployment hello-minikube --image=k8s.gcr.io/echoserver:1.4		-> 	 create a sample deployment
+	kubectl expose deployment hello-minikube --type=NodePort --port=8080			-> 	 expose your deployment on port 8080
+	kubectl get services hello-minikube												-> 	 check your deployment
+	minikube service hello-minikube													-> 	 launch your service
+	minikube pause																	->   Pause Kubernetes without impacting deployed applications
+	minikube unpause																->   unpause
+	minikube stop																	->   halt the cluster
+	minikube config set memory 16384												-> 	 increase the default memory limit (restart required)
+		
+	kubectl get nodes
+	kubectl get pods -A																-> 	 check all the pods available in the cluster
+	helm create helm																-> 	 create a chart and template directory and files

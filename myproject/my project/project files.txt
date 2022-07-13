@@ -1,0 +1,53 @@
+project files and classes needed
+
+docker (folder)
+	|___________.env (file)
+	|___________docker-compose.yml
+							|_____________version
+							|_____________services
+											   |_________<service_name>
+																|_________container_name:
+																|_________image:
+																|_________build: directory to Dockerfile
+																|_________ports:
+																|_________environment
+	|___________Dockerfile
+	
+	
+helm (folder)
+	|___________Chart.yaml
+	|___________values.yaml
+	|___________templates(folder)
+					|___________deployment.yaml(kubernates)
+					|___________service.yaml(kubernates)
+	
+
+src
+ |___main
+	   |___java
+			 |___com.something
+					  |____________client
+					  |____________constants
+					  |____________enum
+					  |____________model
+					  |____________entity
+					  |____________repository
+					  |____________service
+					  |____________controller
+					  |____________exception
+					  |____________factory
+					  |____________mapper
+					  |____________reader
+									 |_____PropertyReader(class)
+					  |____________serialization
+					  |____________util
+					  |____________validation
+       |___resources
+				|_______logback (folder)
+				|				|__________logback.xml (can be multiple for each env)
+				|_______application.yaml
+				|_______swagger.properties
+				
+jenkinsfile
+		 
+	

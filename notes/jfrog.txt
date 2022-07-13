@@ -1,0 +1,8 @@
+jfrog
+
+	---responsibilities:
+	1. used for storing and managing artifacts
+	2. used for downloading and managing dependencies
+	
+	- usually when we need a dependency, build tool like maven is responsible to download the dependency
+	- jfrog can act as a buffer/ proxy to download the dependency from remote repository and store it locally which then can be used by the build tool

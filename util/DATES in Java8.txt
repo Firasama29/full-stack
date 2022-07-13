@@ -1,0 +1,36 @@
+DATES in Java8
+
+	- How to calculate period in years?
+	
+			LocalDate now = LocalDate.now();
+			LocalDate future = LocalDate.of(2024, Month.JUNE, 9);
+			int periodInYears = now.getYear() - future.getYear();
+	
+	
+	- How to get period?
+			Period period = Period.between(now, future);
+			result : P-2Y-5M-8D
+	
+	
+	- How to calculate years between 2 dates?
+			long days = now.until(future, ChronoUnit.YEARS)
+	
+	- How to calculate months between 2 dates?
+			long days = now.until(future, ChronoUnit.MONTHS)
+	
+	- How to calculate days between 2 dates?
+			long days = now.until(future, ChronoUnit.DAYS)
+	
+	
+	- How to formate a date?
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-mm-dd");
+	
+	
+	- How to increment or decrement dates?
+			now.plusYears(#)
+			now.plusMonths(#)
+			now.plusDays(#)
+			
+			now.minusYears(#)
+			now.minusMonths(#)
+			now.minusDays(#)

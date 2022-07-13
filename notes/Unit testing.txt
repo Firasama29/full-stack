@@ -1,0 +1,4 @@
+Unit testing
+	
+	- It is a type of testing where individual units and components are tested to validate each code unit is performing as required.
+	
