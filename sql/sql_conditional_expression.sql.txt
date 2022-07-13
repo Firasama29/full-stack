@@ -1,0 +1,55 @@
+CREATE TABLE tasks (task_id SERIAL PRIMARY KEY NOT NULL, task_name VARCHAR(25) NOT NULL, status VARCHAR(25) NOT NULL, assigned boolean NOT NULL DEFAULT false)
+
+SELECT * FROM tasks;
+
+-- USING CASE WITH SELECT STATEMENT
+SELECT task_name,
+CASE
+WHEN task_id = 1 THEN 'IN_PROGRESS'
+WHEN task_id = 2 THEN 'PENDING'
+WHEN task_id >= 3 THEN 'OPEN'
+ELSE NULL
+END
+FROM tasks;
+-------------------------
+SELECT task_name,
+CASE task_id
+WHEN 1 THEN 'IN_PROGRESS'
+WHEN 2 THEN 'PENDING'
+ELSE 'OPEN'
+END
+FROM tasks;
+
+-- CASE EXPRESSION WITH UPDATE QUERY
+UPDATE tasks
+SET assigned = 
+CASE task_id
+WHEN 1 THEN true
+WHEN 2 THEN true
+ELSE false
+END
+WHERE task_id IN(SELECT task_id FROM tasks);
+
+-- showing the number of points for each task
+SELECT
+CASE task_id
+WHEN 1 THEN 2
+WHEN 2 THEN 4
+WHEN 3 THEN 2
+WHEN 4 THEN 6
+WHEN 5 THEN 1
+WHEN 6 THEN 1
+END AS number_of_points
+FROM tasks;
+
+-- CALCULATING the sum of points for all tasks
+SELECT
+SUM(CASE task_id
+WHEN 1 THEN 2
+WHEN 2 THEN 4
+WHEN 3 THEN 2
+WHEN 4 THEN 6
+WHEN 5 THEN 1
+WHEN 6 THEN 1
+END) AS sum_of_points
+FROM tasks;

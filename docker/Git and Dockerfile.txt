@@ -1,0 +1,16 @@
+Git and Dockerfile
+(source: https://www.baeldung.com/ops/dockerfile-git-strategies)
+
+	1. Include Dockerfile in project directory
+	2. Include the project inside Dockerfile
+			- ADD . /project/
+			- ADD /build/ /project/
+			
+			- ARG JAR_FILE='target/*.jar'
+			- ADD ${JAR_FILE} <jar_name>.jar
+			
+	3. Run git clone command inside Dockerfile (This step will be cached on later builds
+		
+			ARG username = $GIT_USER
+			ARG password = $GIT_PASSWORD
+			RUN git clone https://username:password@github.com:myproject/myfolder.git

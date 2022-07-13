@@ -1,0 +1,29 @@
+	
+	JPQL: deals directly with entities rather than tables
+		
+		@Query("Select e from Example e")
+		@Query("Select e from Example e Where e.id=")
+		
+		
+	Native Query: deals with tables
+	(prefered in situations where you need to use a database feature that is not available in other databases
+	
+	@Query(value = "Select * From example_table Where example_table.id= :id " +
+			
+			"and example_table.name = :name " +
+			
+			"and example_table.column_name = :columnName", nativeQuery = true)
+			
+	@Query(value = "select example_table.column_name as columnName, " +
+	
+			"example_table.column_name2 as columnName2, " +
+			
+			"from example_table " +
+			
+			"where example_table.column_name3 = :columnName3 " +
+			
+			"and column_name4 = :columnName4", nativeQuery = true)		
+
+
+		
+	Derived Query:

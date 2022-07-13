@@ -1,0 +1,31 @@
+-- INNER JOIN is used to display data that is common between the two tables
+-- here we display the customers that made payments
+SELECT * FROM customer
+INNER JOIN payment
+ON customer.customer_id = payment.customer_id
+order by customer.customer_id;
+
+-- FULL OUTER JOIN is used to display all data inside both tables
+-- here we display customers who have made payments and who didn't, 
+-- and payments that were made by customers who exist in the customer table and customers from outside
+SELECT * FROM customer
+FULL OUTER JOIN payment
+ON customer.customer_id = payment.customer_id
+ORDER BY customer.customer_id;
+
+-- LEFT JOIN is used to display data that is used to the left-hand table and data shared between the two tables
+-- it does not display data that is used to the right-hand table
+-- here we only display customers who made payments and custmers who did not.
+--  we do not display payments that were made by customers outside customer table
+SELECT * FROM payment
+LEFT JOIN customer
+ON payment.customer_id = customer.customer_id
+ORDER BY payment.customer_id;
+
+-- here we do the reverse
+-- we display payments that are only made by customers within customer table and customers outside the table
+-- we do not display customers who did not make any payments
+SELECT * FROM payment
+LEFT JOIN customer
+ON payment.customer_id = customer.customer_id
+ORDER BY payment.customer_id;

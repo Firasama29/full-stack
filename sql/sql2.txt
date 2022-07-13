@@ -1,0 +1,31 @@
+-- here we are using group by to group the sum of transactions by date
+SELECT date, SUM(amount) FROM payment
+GROUP BY date
+ORDER BY SUM(amount);
+
+-- here wer are grouping the number of transactions by date
+SELECT date, COUNT(amount) FROM payment
+GROUP BY date
+ORDER BY COUNT(amount);
+
+-- here we are using group by to group the number of transactions by customer
+SELECT customer_id, COUNT(amount) FROM PAYMENT
+GROUP BY customer_id
+ORDER BY COUNT(amount);
+
+SELECT * FROM summary ORDER BY id;
+
+INSERT INTO test (id, name, date, description) VALUES
+(79, 'practice6', '2022-04-15', 'JOINS');
+
+-- displaying customer_id and sum of transactions which are having a sum > 200 and grouping the result by customer_id
+SELECT customer_id, SUM(amount) FROM payment
+GROUP BY customer_id
+HAVING SUM(amount) > 200;
+
+-- displaying customer_id and number of transactions that are having a number of transactions > 5 and grouping the result by customer_id
+-- and ordering by the number of transactions
+SELECT customer_id, COUNT(amount) FROM payment
+GROUP BY customer_id
+HAVING COUNT(amount) > 3
+ORDER BY COUNT(amount);

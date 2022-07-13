@@ -1,0 +1,4 @@
+passing environment variables to docker containers
+(source: https://www.baeldung.com/ops/docker-container-environment-variables)
+	- it is good practice to separate separate code from configuration
+	- configuration can be stored in the environment and then injected 

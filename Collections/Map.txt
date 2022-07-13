@@ -1,0 +1,31 @@
+		
+		Map interface
+		--------------
+		
+		
+		Map	
+		-----------------------------------
+		 ^							|
+		 ^							|
+		 ^							|
+		 ^							|
+	  (extends)					(implements)
+	  SortedMap (interface)		HashMap (class)
+		 |							^
+		 |							^
+		 |							^
+		 |							^
+	  (extends)					(extends)
+	  TreeMap (class)			LinkedHashMap (class)
+	  
+	  
+	- Map does not allow duplicate keys
+	- Map allows duplicate values
+	- HashMap and LinkedHashMap allow null keys and values
+	- TreeMap does not allow any null key or value
+	
+	- Map cannot be traversed, so it needs to be converted into a set with key() or entrySet()
+	
+	- HashMap is an implementation of Map. Does not maintain an order
+	- LinkedHashMap is an implementation of Map and inherets HashMap. Maintains insertion order
+	- TreeMap is an implementation of Map and SortedMap. Maintains ascending order

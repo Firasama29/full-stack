@@ -1,0 +1,52 @@
+	
+	Singleton design pattern
+	(https://www.baeldung.com/creational-design-patterns#builder)
+	(https://www.baeldung.com/java-singleton)
+	
+	WHEN TO USE SINGLETON PATTERN?
+		- when resources are expensive to create like database connection objects
+		- 
+	
+	
+	Implementation:
+	>>>>>>>>>>>>FIRST APPROACH:
+		causes synchronization issues. Not recommended for multithreading
+	
+	public static SingletonClass {
+	
+		// private constructor. It's required to be private in singleton pattern
+		private SingletonClass() {}
+		
+		// instance field
+		private static  SingletonClass INSTANCE;
+		
+		
+		// a method used to obtain the instance
+		public static SingletonClass getInstance() {
+			if(INSTANCE == null) {
+				INSTANCE = new SingletonClass();
+			}
+			return INSTANCE;
+		}
+		// getters and setters
+	}
+	
+	>>>>>>>>>>>>SECOND APPROACH: BETTER APPROACH WHICH
+		- thread safe
+		- no synchronization issues
+		- enforces lazy initialization
+	
+	public class Singleton  {    
+    
+		//private constructor
+		private Singleton() {}
+    
+		//inner static class. It creates the instance only when getInstance() method is called, not when the outer class is loaded
+		private static class SingletonHolder {    
+			public static final Singleton instance = new Singleton();
+		}
+
+		public static Singleton getInstance() {    
+			return SingletonHolder.instance;    
+		}
+	}

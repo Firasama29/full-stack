@@ -1,0 +1,109 @@
+	
+	
+	AOP : is a programming paradigm that aims to increase modularity by allowing separation of cross-cutting concerns. It does this to add
+			behavior to the code without modification of the code itself
+					
+			Cross-cutting concern
+				- It's a functionality that is tangled with business code and cannot be separated from it. It is heavily coupled with functionality
+				that the code might be affected if it.
+				
+				- Examples of cross cutting concerns:	
+					- Auditing
+					- logging
+					- security
+					- transaction management
+					- caching
+					- internationalization
+					- error detection and correction
+					- memory management
+					- performance monitoring
+					- synchronization
+				
+				- They can be separated from the business code using aspects
+				
+				- They're called cross-cutting because they cut accross different layers (data access layer, business layer, presentation layer)
+		
+		
+		- Aspects change the bahavior, not the actuall implementation
+		
+	An aspect is a modularization of a cross-cutting concern that cuts across multiple classes.
+		
+		- In spring, aspects are regular classes annotated with @Aspect annotation
+		
+	JoinPoint is a point during the exeuction of a method or handling an exception. In Spring AOP, JoinPoints always represent
+			a method execution
+			
+	A pointCut is an expression that helps an aspect implement an advice at a particular joinPoint.
+	
+	Advice is the action taken by an aspect during a join point
+		- Advices are associated with pointCuts and run at any joinPoint matched by the pointCut.
+			-- see example AOP in practice folder
+			
+			Example of advices
+				- logBeforeAllMethods()
+				- logBeforeFindEmployees()
+				- logBeforeFindEmployeeById()
+				- logAfterAllMethods()
+				
+				
+---------------------------------------------------------------------------------------				
+		- Example of pointCuts for different classes and how to use them:
+			* Either add the pointCut inside @Before or @After
+			* or define the pointCut separately then include it inside the annotation
+			
+			******************------- pointCuts defined separately -------******************
+			///////////pointCut for methods within service class
+			@PointCut("within(com.spring.aop.service.*Service)")
+			public void service() {
+				// Method is empty as this is just a Pointcut, the implementations are in the advices.
+			}
+			
+			///////////pointCut for methods within controller class
+			@PointCut("within(com.spring.aop.controller.*Controller)")
+			public void controller() {
+				// Method is empty as this is just a Pointcut, the implementations are in the advices.
+			}
+			
+			///////////pointCut for all public methods
+			@PointCut("execution(public * *(..))")
+			public void publicMethods() {
+				// Method is empty as this is just a Pointcut, the implementations are in the advices.
+			}
+			
+			///////////pointCut that matches all repositories, services and controllers
+			@PointCut("within(@org.spring.framework.stereotype.Repository *)" +
+					" || within(@org.spring.framework.stereotype.Service *)" +
+					" || "within(@org.spring.framework.stereotype.RestController *)")
+			public void springBeanPointCut() {
+				// Method is empty as this is just a Pointcut, the implementations are in the advices.
+			}
+			
+			///////////pointCut that matches all Spring beans in the application main packages
+			@PointCut("within(@com.spring.aop..*)" +
+					" || within(@com.spring.aop.service..*)" +
+					" || within(@com.spring.aop.controller..*)")
+			public void applicationPackagePointCut() {
+				// Method is empty as this is just a Pointcut, the implementations are in the advices.
+			}
+			
+			
+			@Before("service() && controller()")
+			public void logBeforAllMethods(JoinPoint joinPoint) {
+				log.info("Executing method before [{}] " + joinPoint.getSignature().getName());
+			}
+			
+			
+			******************------- pointCuts defined inside annotation -------******************
+			@Before("execution(* com.spring.aop.service.ExampleService.*(..))")
+			public void logBeforAllMethods(JoinPoint joinPoint) {
+				log.info("Executing method before [{}] " + joinPoint.getSignature().getName());
+			}
+			
+			@After("execution(* com.spring.aop.service.ExampleService.*(..))")
+			public void logAfterAllMethods(JoinPoint joinPoint) {
+				log.info("Executing method after [{}] " + joinPoint.getSignature().getName());
+			}	
+------------------------------------------------------------------------------------------------------------------------------------			
+				
+				
+		

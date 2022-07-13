@@ -1,0 +1,57 @@
+maven goals
+	- a goal is responsible for a specific task
+	- phases represent a sequence of goals
+	- when running a phase, all goals bound to it will be executed in order
+	plugins are bound by goals:
+	
+	- Clean plugin: call mvn clean:help
+		- clean:clean	: cleans project directory of the files generated at build-time
+		- clean:help	: 
+			> displays information of clean plugin
+			>  Call mvn clean:help -Ddetail=true -Dgoal=<goal-name> to display parameter details.
+		
+		
+		
+	- Compiler plugin: call mvn compile:help
+			- compiler:compile	- 
+				> compile goal is bound to the compile phase
+				> compiles application's sources
+			- compiler:testCompile	- 
+				> testCompile goal is bound to the test-compile phase
+				> compiles test sources
+			- compiler:help	-
+				> displays information of compiler plugin
+				> call mvn compiler:help -Ddetail=true -Dgoal=<goal-name> to display parameter details
+		
+
+		
+	- Surefile plugin:
+		- surefile:test: 
+			> has one goal 'test' bound to 'test' phase
+			> runs tests using Surefire
+		- surefire:help:
+			> displays information of surefire plugin
+			> call mvn surefire:help -Ddetail=true -Dgoal=<goal-name> to display parameter details
+
+
+		
+	- Install plugin: call mvn install:help
+		- install:help	: 
+			> to display all information of install plugin
+			> call mvn install:help -Ddetail=true -Dgoal=<goal-name> to display parameter details.
+			
+		- install:install
+			> installs project's main artifact and other artifacts attached by other plugins of the lifecycle to the local repository
+		
+		- install:install-file
+			> installs a file in the local repository
+			
+			
+	- Deploy plugin: call mvn deploy:help
+		- deploy:deploy
+			> deploys artifact to remote repository
+		- deploy:deploy-file
+			> deploys the artifact in the remote repository
+		- deploy:help
+			> displays information of the deploy plugin
+			> Call mvn deploy:help -Dgoal=<goal-name> to display parameter details.

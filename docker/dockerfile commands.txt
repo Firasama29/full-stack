@@ -1,0 +1,47 @@
+	
+	Source(https://docs.docker.com/engine/reference/builder/)
+	Source(https://docs.docker.com/develop/develop-images/dockerfile_best-practices/)
+	
+- Dockerfile: a text document that contains all the commands used to build an image. When we tell Docker to build 
+			our image by executing the docker build command, Docker reads these instructions and execute them sequentially 
+			and creates a Docker image.
+- Build's context: is a set of files at a specified location (PATH or URL)
+- PATH: is a directory to local filesystem
+- URL: git repository location
+	(Do not use your root directory, /, as the PATH for your build context, as it causes the build to transfer the entire contents of your
+	 hard drive to the Docker daemon.)
+
+
+				
+			
+
+Dockerfile commands
+---------------------
+	docker build .												-> . (dot) refers to current directory
+	docker build -f /PATH .										-> to point to a Dockerfile in the specified path
+    docker build -t test/myapp .								-> to specify a repository and tag at which to save the new image after build success
+	docker build -t test/myapp:1.0.2 -t test/myapp:latest .		-> to tag the image into multiple repositories after build success
+	docker run -it image_name sh
+	
+	# syntax parser directive	:  instructs the Docker builder what syntax to use when parsing the Dockerfile,
+								   and allows older Docker versions with BuildKit enabled to upgrade the parser before starting the 
+								   build. Parser directives must appear before any other comment, whitespace, or 
+								   Dockerfile instruction in your Dockerfile, and should be the first line in Dockerfiles.
+	
+	docker/dockerfile:1			:  always points to the latest release of the version 1 syntax
+
+
+	FROM openjdk:16-alpine3.13	:  tells Docker what base image we would like to use for our application. We’ll use the official 
+								   Maven image with Java JDK that already has all the tools and packages that we need to run a Java 
+								   application.
+			(images can be inherited from other images, therefore we can use maven's image)
+	
+	
+	docker build				: builds docker images from a Dockerfile and context
+				
+
+			
+	docker images				: view images
+	
+	
+ 

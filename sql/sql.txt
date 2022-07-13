@@ -1,0 +1,51 @@
+-- CREATE TABLE test (id int, name VARCHAR(255), date date, description VARCHAR(255));
+
+INSERT INTO test (id, name, date, description) 
+VALUES(1, 'practice1', '2022-04-14', 'additional row'),
+(15, 'practice2', '2022-04-14', 'selecting distinct values'),
+(6, 'practice', '2022-04-14', 'counting from a table'),
+(20, 'practice3', '2022-04-14', 'additional row'),
+(7, 'practice2', '2022-04-14', 'selecting distinct values'),
+(10, 'practice', '2022-04-14', 'counting from a table'),
+(65, 'practice3', '2022-04-14', 'additional row');
+
+SELECT * FROM test;
+
+SELECT DISTINCT name FROM test;
+SELECT DISTINCT description FROM test;
+
+SELECT COUNT (DISTINCT description) FROM test;
+
+UPDATE test SET description = '"aggregate functions"' WHERE id = 20;
+UPDATE test SET date = '2022-05-12' WHERE id = 4;
+
+SELECT description from test WHERE id = 5;
+SELECT * FROM test WHERE date > '2022-04-13';
+
+SELECT * FROM test ORDER BY id asc;
+SELECT * FROM test ORDER BY id desc;
+
+SELECT * FROM test LIMIT 5;
+SELECT * FROM test ORDER BY id DESC LIMIT 5;
+
+SELECT * FROM test WHERE id BETWEEN 4 AND 7 ORDER BY id;
+SELECT * FROM test WHERE id NOT BETWEEN 4 AND 7 ORDER BY id;
+
+SELECT * FROM test WHERE date BETWEEN '2022-04-14' AND '2022-04-20' ORDER BY date ASC;
+
+SELECT * FROM test WHERE name IN ('practice', 'practice1', 'practice2');
+SELECT * FROM test WHERE name NOT IN ('practice', 'practice1', 'practice2');
+
+SELECT * FROM test WHERE name LIKE '%ce1';
+SELECT * FROM test WHERE name LIKE '%ce%';
+SELECT * FROM test WHERE name LIKE 'p%';
+SELECT * FROM test WHERE name NOT LIKE '%ce';
+SELECT COUNT(*) FROM test WHERE name LIKE '%e%';
+
+SELECT * FROM test WHERE name LIKE '_ractice';
+SELECT * FROM test WHERE name NOT LIKE '_ractice';
+
+SELECT MIN(date) FROM test;
+SELECT MAX(date) FROM test;
+SELECT ROUND(AVG(id), 2) FROM test;
+SELECT SUM(id) FROM test;

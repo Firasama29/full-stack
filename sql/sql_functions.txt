@@ -1,0 +1,23 @@
+-- to display current date, time and timezone
+SELECT NOW();
+SELECT TIMEOFDAY();
+
+-- to display current date
+SELECT CURRENT_DATE;
+
+-- to display current time
+SELECT CURRENT_TIME;
+
+SELECT * FROM payment;
+
+SELECT EXTRACT(DAY FROM date) AS day FROM payment;
+SELECT EXTRACT(MONTH FROM date) AS month FROM payment;
+SELECT EXTRACT(YEAR FROM date) AS year FROM payment;
+SELECT EXTRACT(QUARTER FROM date) AS quarter FROM payment;
+SELECT customer_id, COUNT(EXTRACT(DAY FROM date)) AS number_of_days FROM payment
+GROUP BY customer_id;
+
+SELECT AGE(date) AS age FROM payment;
+
+SELECT TO_CHAR(date,'yyyy-MM-dd') as date FROM payment;
+

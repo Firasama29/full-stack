@@ -1,0 +1,10 @@
+	Dependency scopes
+	
+	<scope>compile</scope>		-> 		default
+	
+	<scope>test</scope>			->		only for tests
+	
+	<scope>provided</scope>		->		dependency is going to be added to classpath during compilation. Once the app is deployed, jar file 	
+										will be provided at runtime
+	
+	<scope>runtime</scope>		->		opposite of provided. You don't need the jar file during development but you need it during runtime
