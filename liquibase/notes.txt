@@ -1,0 +1,183 @@
+notes
+
+
+
+> maven plugin
+	- The Maven configuration requires Liquibase plugin to be added in the pom.xml file,
+	  along with the declaration for the dependency of JDBC jar which will be used by Liquibase. Also,
+	  it requires a "liquibase.properties" file to provide Liquibase with required.
+	
+	- The pom.xml file will have the plugin configuration for liquibase maven plugin and mssql-jdbc
+	  jar which will be used to connect to underlying SQL server database to apply changelogs.
+	  
+	  ----------------------------------------------------------------------------------------------------------------
+	<?xml version="1.0" encoding="UTF-8"?>
+	<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+		<modelVersion>4.0.0</modelVersion>
+		
+		<groupId>com.neo.db</groupId>
+		<artifactId>neo-service-db</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<name>neo-service-db</name>
+
+		<properties>
+			<java.version>1.8</java.version>
+			<mssql-jdbc.version>6.4.0.jre8</mssql-jdbc.version>
+			<maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+			<liquibase-maven-plugin.version>3.0.5</liquibase-maven-plugin.version>
+		</properties>
+
+		<dependencies>
+			<dependency>
+				  <groupId>com.microsoft.sqlserver</groupId>
+				  <artifactId>mssql-jdbc</artifactId>
+				  <version>${mssql-jdbc.version}</version>
+				  <scope>compile</scope>
+			</dependency>
+		</dependencies>
+		<build>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${maven-compiler-plugin.version}</version>
+					<configuration>
+					  <source>${java.version}</source>
+					  <target>${java.version}</target>
+					</configuration>
+				</plugin>
+				<plugin>
+				   <groupId>org.liquibase</groupId>
+				   <artifactId>liquibase-maven-plugin</artifactId>
+				   <version>${liquibase-maven-plugin.version}</version>
+				   <configuration>                  
+					  <propertyFile>src/main/resources/liquibase/liquibase.properties</propertyFile>
+					   <propertyFileWillOverride>true</propertyFileWillOverride>
+				   </configuration>                
+				   <executions>
+					 <execution>
+					   <phase>process-resources</phase>                                                                  
+					   <goals>
+						 <goal>update</goal>
+					   </goals>
+					 </execution>
+				   </executions>
+				</plugin>   
+			</plugins>
+		</build>
+	</project>
+	----------------------------------------------------------------------------------------------------------------
+
+=========================================================================================================================================
+> db.changelog.xml
+	- The db.changelog.xml file will be the entry point from where the execution of liquibase will start.
+	----------------------------------------------------------------------------------------------------------------
+	
+		<?xml version="1.0" encoding="utf-8" ?>
+		<databaseChangeLog
+				xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+				xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+				http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+		 
+			<include file="changeset/changeset1.xml"/>
+			<include file="changeset/changeset2.xml"/>
+			<include file="changeset/changeset_release_1.0.xml"/>
+			<include file="changeset/changeset3.xml"/>
+			<include file="changeset/changeset4.xml"/>
+		 
+		</databaseChangeLog>
+	----------------------------------------------------------------------------------------------------------------
+	
+	- The root xml file will have the include references to all the changeset files which would consist of
+	  the schema sql file references which are to be executed against databases. The content of sample changeset file would look like:
+	
+	changeset.xml
+	----------------------------------------------------------------------------------------------------------------
+		<?xml version="1.0" encoding="utf-8" ?>
+		<databaseChangeLog
+				xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+				xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+				http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+		 
+			<changeSet id="1" author="authorName">
+				<sqlFile path="schema/test1.sql"/>
+				<rollback>
+					<sql>drop sequence seq_test;</sql>
+					<dropTable tableName="test1"/>
+				</rollback>
+			</changeSet>
+		 
+		</databaseChangeLog>
+	----------------------------------------------------------------------------------------------------------------
+	
+	- The referencing test1.sql file will have the actual sql queries which are to be executed against DB
+	- Also, note that the rollback tag has to be provided for all the SQL files that we add. If no rollback is required then
+	  an empty rollback tag should be present which would suggest Liquibase not to execute any rollback against the given changeset.
+	  
+=========================================================================================================================================  
+> liquibase update:
+		- mvn liquibase:update -Ddb_name='database_name' -Ddb_host='localhost:1432' -Ddb_username='SA' -Ddb_password='password'
+		- This command will apply all the change sets one by one and log the changes in the table "DATABASECHANGELOG".
+		- To generate the migration SQL file for rolling out the changes, use below command:
+			mvn liquibase:updateSQL -Ddb_name='database_name' -Ddb_host='localhost:1432' -Ddb_username='SA' -Ddb_password='password'
+		- the above command will generate migration file into target/liquibase/migrate.sql	
+
+> liquibase rollback
+		- Using tags (rollbackTag)							>	mvn liquibase:rollback -Dliquibase.rollbackCount=10
+		- number of changesets to rollback (rollbackCount)	> 	mvn liquibase:rollback -Dliquibase.rollbackTag=1.0
+		- Rollback using date (rollbackDate)				>   mvn liquibase:rollback -Dliquibase.rollbackDate='15 July, 2022'
+
+=========================================================================================================================================		
+> Context-based changesets
+	- There can be a requirement to execute certain queries against a specific environment.
+	- In such cases, the context can be used to have control over which environment should a particular query being executed.
+	- The context attribute of the changeset tag can be used to achieve the same.
+	- mvn liquibase:update -Dliquibase.contexts='sit'
+	----------------------------------------------------------------------------------------------------------------
+		<?xml version="1.0" encoding="utf-8" ?>
+		<databaseChangeLog
+				xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+				xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+				http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+		 
+			<changeSet id="10" author="authorName" context="sit">
+				<sql>insert into test1 (id, name) values (100, 'sit');</sql>
+				<sql>delete from test1 where id = 100</sql>
+				<rollback>
+					<sql>delete from test1 where id = 100</sql>
+				</rollback>
+			</changeSet>
+		 
+		</databaseChangeLog>
+	----------------------------------------------------------------------------------------------------------------
+
+=========================================================================================================================================	
+> In case the requirement is to execute queries only when preconditions are met, changesets can be written as follows:
+
+	----------------------------------------------------------------------------------------------------------------
+		<?xml version="1.0" encoding="utf-8" ?>
+		<databaseChangeLog
+		 xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+		 http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+		 
+		 <changeSet id="2" author="ravi">
+			<preConditions onError="CONTINUE" onFail="WARN">
+				<sqlCheck expectedResult="0">select count(*) from test1</sqlCheck>
+			</preConditions>
+			<sqlFile path="schema/test2.sql"/>
+			<rollback>
+				<sqlFile path="schema/rollback/test2.sql"/>
+			</rollback>
+		 </changeSet>
+		</databaseChangeLog>
+	----------------------------------------------------------------------------------------------------------------
+	
+	
+	
+	
