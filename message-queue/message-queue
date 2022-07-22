@@ -1,0 +1,38 @@
+message queue
+
+sources
+(
+
+)
+
+	topics:
+	- What is JMS
+	- JMS vs email
+	- JMS components
+	- messaging models
+	
+	
+	==================================================================================================================
+	
+	- activeMq dependencies for spring boot project
+	
+		---------------------------------------------------------------------------------------------------------
+		- starter dependency
+		<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-activemq</artifactId>
+        </dependency>
+		
+		- apache activeMq dependency
+		<dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-pool</artifactId>
+        </dependency>
+		
+		- jms dependency
+		<dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jms</artifactId>
+        </dependency>
+		---------------------------------------------------------------------------------------------------------
+	

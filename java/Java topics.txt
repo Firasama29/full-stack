@@ -1,0 +1,43 @@
+Java topics
+-----------
+sources
+(
+	static methods: https://www.baeldung.com/java-static-methods-use-cases
+)
+
+	topics:
+	======
+	- Compiler vs Interpreter
+	- How Java is Platform Independent
+	- JVM Architecture
+	- Method Overloading
+	- Class vs Object
+	- static keyword
+	- this keyword
+	- super keyword
+	- Constructors
+		> Parametrised Constructor
+	- OOP
+		> Inheritence
+			>> Generalisation vs Specialisation
+			>> Constructors in Inheritance
+			>> this vs super
+			>> Method Overriding
+			>> Polymorphism using Overloading and Overriding
+		> Abstract classes
+		> Interfaces
+	- static
+	- final
+	- Access Modifiers
+	- Exception handling
+	- Java.lang package
+		> Object class
+		> Wrapper class
+		> autoBoxing and autoUnboxing
+		> String vs StringBuilder vs StringBuffer
+		> Math Class
+		> Enum
+	- Java IO streams
+		> InputStream and OutputStream Classes
+	- Java Generics
+	- Collection framework

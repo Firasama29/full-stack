@@ -1,0 +1,65 @@
+Amazon S3
+
+	> How to configure Amazon S3 in spring boot application
+	
+		1- maven dependency
+			
+			***************************************************************
+				<dependency>
+					<groupId>com.amazonaws</groupId>
+					<artifactId>aws-java-sdk-s3</artifactId>
+				</dependency>
+			***************************************************************
+	---------------------------------------------------------------------------------------------------------------------------------------------------
+		2- AwsS3Config.java
+
+			******************************************************************************************************************************
+				@Configuration
+				public class AwsS3Config {
+				
+					@Profile("local")
+					@Bean
+					public AmazonS3 awsS3Local() {
+						return AmazonS3ClientBuilder().standard().withCredentials(new EnvironmentVariableCredentialsProvider()).build();
+					}
+					
+					@Profile("dev", "uat", "sit", "prod")
+					@Bean
+					public AmazonS3 amazonS3() {
+						return AmazonS3ClientBuilder().standard().withCredentials(new EnvironmentVariableCredentialsProvider()).build();
+					}
+				
+					
+				}
+			******************************************************************************************************************************
+	NOTES:
+			- EnvironmentVariableCredentialsProvider, AmazonS3ClientBuilder and AmazonS3 are available in amazon-java-sdk-core library 
+			  (aws-java-sdk-core-1.11.415.jar) from the above dependency
+		
+	---------------------------------------------------------------------------------------------------------------------------------------------------
+		3- provide url in application.properties/application.yaml and helm files and inject it
+			aws.s3.url=....
+			
+			@Value("${aws.s3.url}")
+			public static String awsS2Url;
+		
+	---------------------------------------------------------------------------------------------------------------------------------------------------
+		4-provide file path in S3 in the application
+		
+	---------------------------------------------------------------------------------------------------------------------------------------------------
+		5 define methods
+		
+			******************************************************************************************************************************
+			String upload() {}
+			
+			InputStream getData(String url) {}
+			
+			boolean isFileExist(String url) {}
+			
+			long getFileSize(String url) {}
+			
+			void downloadFolder(String file)
+			
+			void delete(String file) {}
+			******************************************************************************************************************************
+		
