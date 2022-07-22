@@ -1,5 +1,0 @@
-spring boot react project
--------------------------
-create a spring boot project
-create a react project
-inside react project, install axios library for http to make rest api calls (npm install axios)
