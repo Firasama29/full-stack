@@ -1,0 +1,20 @@
+topics:
+    - arrays methods
+
+
+---------------------------------------------------
+
+- arrays methods
+    let myArray = [1, 2, 3, 4]
+
+    - to remove the last element from the array
+    largeCountries.pop(4)
+    
+    - to add an element to the end of the array
+    largeCountries.push(5)
+    
+    - to remove an element from the beginning of the array
+    largeCountries.shift(1)
+    
+    - to add an element to the beginning of the array
+    largeCountries.unshift(2)    
