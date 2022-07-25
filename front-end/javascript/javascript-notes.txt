@@ -1,20 +1,40 @@
 topics:
     - arrays methods
+	- common methods
 
 
 ---------------------------------------------------
 
-- arrays methods
-    let myArray = [1, 2, 3, 4]
+	> arrays methods
+		let myArray = [1, 2, 3, 4]
 
-    - to remove the last element from the array
-    largeCountries.pop(4)
-    
-    - to add an element to the end of the array
-    largeCountries.push(5)
-    
-    - to remove an element from the beginning of the array
-    largeCountries.shift(1)
-    
-    - to add an element to the beginning of the array
-    largeCountries.unshift(2)    
+		- to remove the last element from the array
+		largeCountries.pop(4)
+		
+		- to add an element to the end of the array
+		largeCountries.push(5)
+		
+		- to remove an element from the beginning of the array
+		largeCountries.shift(1)
+		
+		- to add an element to the beginning of the array
+		largeCountries.unshift(2)
+
+
+	> common methods
+		- document.getElementById('id')
+		- document.querySelector('any selector')
+		- document.createElement('..')
+		- document.getElementById('..').innerText
+		- document.getElementById('..').textContent
+		- document.getElementById('..').innerHTML
+		- document.createElement('..').classList.add('..')
+		- addEventListener('key', function)
+			----------------------------------------------------------------------------------------------
+				const btnEl = document.querySelector('.btn-el)
+				btnEl.addEventListener('keyPress', setExampleFunction);
+				
+				function setExampleFunction(someVariable) {
+					....
+				}
+			----------------------------------------------------------------------------------------------
