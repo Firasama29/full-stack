@@ -1,0 +1,6 @@
+Now that you’ve become more familiar with Unix commands, we can download an fMRI package and install it with Unix.
+If you haven’t already downloaded FSL, watch this video. After you’re done, come back to this tutorial.
+
+When you downloaded and installed FSL, you may have seen a few things you didn’t completely understand.
+
+For example, if you go to your home directory and type “cat .bashrc”, you’ll see this block of code.

@@ -8,6 +8,7 @@ sources
 	object assignment: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
 	Higher-Order Functions in JavaScript: https://faheemkhan97.hashnode.dev/higher-order-functions-in-javascript
 	ES6: A Guide You Must Go Through Before Learning React: https://faheemkhan97.hashnode.dev/es6-a-guide-you-must-go-through-before-learning-react
+	ES6 tutoral for beginners: https://www.youtube.com/watch?v=wwUbI2i_LZM&list=PLq0PJh6C4j7Jfmjt9XDy7ilEwlIL62RxR&index=12&ab_channel=Udemy
 )
 
 	topics:
@@ -17,6 +18,10 @@ sources
 			- Conditionals and Loops
 			- Arrays
 			- Objects
+			- Object literals
+			- rest operator (...something)
+			- spread operator
+			- for-of loop
 			- Functions
 				>> Function declaration
 				>> Function statement
